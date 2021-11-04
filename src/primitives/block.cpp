@@ -7,6 +7,7 @@
 #include "primitives/block.h"
 
 #include "hash.h"
+#include "crypto/xevan.h"
 #include "script/standard.h"
 #include "script/sign.h"
 #include "tinyformat.h"
@@ -15,22 +16,15 @@
 
 uint256 CBlockHeader::GetHash() const
 {
-    if (nVersion < 4)  {
-#if defined(WORDS_BIGENDIAN)
-        uint8_t data[80];
-        WriteLE32(&data[0], nVersion);
-        memcpy(&data[4], hashPrevBlock.begin(), hashPrevBlock.size());
-        memcpy(&data[36], hashMerkleRoot.begin(), hashMerkleRoot.size());
-        WriteLE32(&data[68], nTime);
-        WriteLE32(&data[72], nBits);
-        WriteLE32(&data[76], nNonce);
-        return HashQuark(data, data + 80);
-#else // Can take shortcut for little endian
-        return HashQuark(BEGIN(nVersion), END(nNonce));
-#endif
+    if (nVersion < 4) {
+        uint256 thash;
+        xevan_hash(reinterpret_cast<const char*>(this), (char*)&thash, 80);
+        return thash;
+    } else if (nVersion == 4) {
+        return Hash(BEGIN(nVersion), END(nAccumulatorCheckpoint));
+    } else {
+        return Hash(BEGIN(nVersion), END(nNonce));
     }
-    // version >= 4
-    return SerializeHash(*this);
 }
 
 std::string CBlock::ToString() const
