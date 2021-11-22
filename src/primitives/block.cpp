@@ -7,7 +7,6 @@
 #include "primitives/block.h"
 
 #include "hash.h"
-#include "crypto/xevan.h"
 #include "script/standard.h"
 #include "script/sign.h"
 #include "tinyformat.h"
@@ -16,15 +15,13 @@
 
 uint256 CBlockHeader::GetHash() const
 {
-    if (nVersion < 4) {
-        uint256 thash;
-        xevan_hash(reinterpret_cast<const char*>(this), (char*)&thash, 80);
-        return thash;
-    } else if (nVersion == 4) {
+    if (nVersion < 4)
+        return XEVAN(BEGIN(nVersion), END(nNonce));
+
+    if (nVersion == 4)
         return Hash(BEGIN(nVersion), END(nAccumulatorCheckpoint));
-    } else {
-        return Hash(BEGIN(nVersion), END(nNonce));
-    }
+
+    return Hash(BEGIN(nVersion), END(nNonce));
 }
 
 std::string CBlock::ToString() const
