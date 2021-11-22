@@ -13,7 +13,13 @@
  * for both pivxd and pivx-qt, to make it harder for attackers to
  * target servers or GUI users specifically.
  */
-const std::string CLIENT_NAME("PIVX Core");
+const std::string CLIENT_NAME("KickSoccer Core");
+
+/**
+ * The Codename of the current release, often appended to CLIENT_NAME.
+ * E.g: Devious (The first code-named KickSoccer Core release, for v2.0.0)
+ */
+const std::string CLIENT_CODENAME = "Devious";
 
 /**
  * Client version number

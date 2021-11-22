@@ -1676,40 +1676,10 @@ void CConnman::ThreadOpenConnections()
             }
         }
 
-        // Feeler Connections
-        //
-        // Design goals:
-        //  * Increase the number of connectable addresses in the tried table.
-        //
-        // Method:
-        //  * Choose a random address from new and attempt to connect to it if we can connect
-        //    successfully it is added to tried.
-        //  * Start attempting feeler connections only after node finishes making outbound
-        //    connections.
-        //  * Only make a feeler connection once every few minutes.
-        //
-        bool fFeeler = false;
-        if (nOutbound >= nMaxOutbound) {
-            int64_t nTime = GetTimeMicros(); // The current time right now (in microseconds).
-            if (nTime > nNextFeeler) {
-                nNextFeeler = PoissonNextSend(nTime, FEELER_INTERVAL);
-                fFeeler = true;
-            } else {
-                continue;
-            }
-        }
-
-        addrman.ResolveCollisions();
-
         int64_t nANow = GetAdjustedTime();
         int nTries = 0;
-        while (!interruptNet) {
-            CAddrInfo addr = addrman.SelectTriedCollision();
-
-            // SelectTriedCollision returns an invalid address if it is empty.
-            if (!fFeeler || !addr.IsValid()) {
-                addr = addrman.Select(fFeeler);
-            }
+        while (true) {
+            CAddrInfo addr = addrman.Select();
 
             // if we selected an invalid address, restart
             if (!addr.IsValid() || setConnected.count(addr.GetGroup()) || IsLocal(addr))
@@ -1725,10 +1695,6 @@ void CConnman::ThreadOpenConnections()
             if (IsLimited(addr))
                 continue;
 
-            // only connect to full nodes
-            if ((addr.nServices & REQUIRED_SERVICES) != REQUIRED_SERVICES)
-                continue;
-
             // only consider very recently tried nodes after 30 failed attempts
             if (nANow - addr.nLastTry < 600 && nTries < 30)
                 continue;
@@ -1741,17 +1707,8 @@ void CConnman::ThreadOpenConnections()
             break;
         }
 
-        if (addrConnect.IsValid()) {
-            if (fFeeler) {
-                // Add small amount of random noise before connection to avoid synchronization.
-                int randsleep = GetRandInt(FEELER_SLEEP_WINDOW * 1000);
-                if (!interruptNet.sleep_for(std::chrono::milliseconds(randsleep)))
-                    return;
-                LogPrint(BCLog::NET, "Making feeler connection to %s\n", addrConnect.ToString());
-            }
-
-            OpenNetworkConnection(addrConnect, (int)setConnected.size() >= std::min(nMaxConnections - 1, 2), &grant, nullptr, false, fFeeler);
-        }
+        if (addrConnect.IsValid())
+            OpenNetworkConnection(addrConnect, (int)setConnected.size() >= std::min(nMaxConnections - 1, 2), &grant);
     }
 }
 

@@ -462,23 +462,44 @@ fs::path GetMasternodeConfigFile()
     return AbsPathForConfigVal(pathConfigFile);
 }
 
+static const char alphanum[] =
+      "0123456789"
+      "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+      "abcdefghijklmnopqrstuvwxyz";
+
 void ReadConfigFile(std::map<std::string, std::string>& mapSettingsRet,
     std::map<std::string, std::vector<std::string> >& mapMultiSettingsRet)
 {
-    fs::ifstream streamConfig(GetConfigFile());
+    boost::filesystem::ifstream streamConfig(GetConfigFile());
     if (!streamConfig.good()) {
-        // Create empty pivx.conf if it does not exist
-        FILE* configFile = fsbridge::fopen(GetConfigFile(), "a");
-        if (configFile != NULL)
+        // Create empty ksoc.conf if it does not exist
+        FILE* configFile = fopen(GetConfigFile().string().c_str(), "a");
+        if (configFile != NULL){
+            fprintf(configFile, "listen=1\n");
+            fprintf(configFile, "server=1\n");
+            fprintf(configFile, "daemon=1\n");
+            fprintf(configFile, "txindex=1\n");
+            fprintf(configFile, "rpcuser=rpcusername\n");
+            char s[34];
+            for (int i = 0; i < 34; ++i)
+            {
+                s[i] = alphanum[rand() % (sizeof(alphanum) - 1)];
+            }
+            std::string str(s, 34);
+            std::string rpcpass = "rpcpassword=" + str + "\n";
+            fprintf(configFile, rpcpass.c_str());
+            fprintf(configFile, "port=20555\n");
+            fprintf(configFile, "rpcport=20554\n");
             fclose(configFile);
-        return; // Nothing to read, so just return
+            return; // Nothing to read, so just return
+        }
     }
 
     std::set<std::string> setOptions;
     setOptions.insert("*");
 
     for (boost::program_options::detail::config_file_iterator it(streamConfig, setOptions), end; it != end; ++it) {
-        // Don't overwrite existing settings so command line settings override pivx.conf
+        // Don't overwrite existing settings so command line settings override ksoc.conf
         std::string strKey = std::string("-") + it->string_key;
         std::string strValue = it->value[0];
         InterpretNegativeSetting(strKey, strValue);
