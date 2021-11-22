@@ -1,8 +1,8 @@
-// Copyright (c) 2019-2020 The PIVX developers
+// Copyright (c) 2019-2020 The KSOC developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#include "qt/pivx/pivxgui.h"
+#include "qt/ksoc/ksocgui.h"
 
 #ifdef Q_OS_MAC
 #include "macdockiconhandler.h"
@@ -14,9 +14,9 @@
 #include "networkstyle.h"
 #include "notificator.h"
 #include "guiinterface.h"
-#include "qt/pivx/qtutils.h"
-#include "qt/pivx/defaultdialog.h"
-#include "qt/pivx/settings/settingsfaqwidget.h"
+#include "qt/ksoc/qtutils.h"
+#include "qt/ksoc/defaultdialog.h"
+#include "qt/ksoc/settings/settingsfaqwidget.h"
 
 #include "init.h"
 #include "util.h"
@@ -36,9 +36,9 @@
 #define BASE_WINDOW_MIN_WIDTH 1100
 
 
-const QString PIVXGUI::DEFAULT_WALLET = "~Default";
+const QString KSOCGUI::DEFAULT_WALLET = "~Default";
 
-PIVXGUI::PIVXGUI(const NetworkStyle* networkStyle, QWidget* parent) :
+KSOCGUI::KSOCGUI(const NetworkStyle* networkStyle, QWidget* parent) :
         QMainWindow(parent),
         clientModel(0){
 
@@ -66,7 +66,7 @@ PIVXGUI::PIVXGUI(const NetworkStyle* networkStyle, QWidget* parent) :
 
     QString windowTitle = QString::fromStdString(GetArg("-windowtitle", ""));
     if (windowTitle.isEmpty()) {
-        windowTitle = tr("PIVX Core") + " - ";
+        windowTitle = tr("KSOC Core") + " - ";
         windowTitle += ((enableWallet) ? tr("Wallet") : tr("Node"));
     }
     windowTitle += " " + networkStyle->getTitleAddText();
@@ -165,7 +165,7 @@ PIVXGUI::PIVXGUI(const NetworkStyle* networkStyle, QWidget* parent) :
 
 }
 
-void PIVXGUI::createActions(const NetworkStyle* networkStyle)
+void KSOCGUI::createActions(const NetworkStyle* networkStyle)
 {
     toggleHideAction = new QAction(networkStyle->getAppIcon(), tr("&Show / Hide"), this);
     toggleHideAction->setStatusTip(tr("Show or hide the main Window"));
@@ -175,14 +175,14 @@ void PIVXGUI::createActions(const NetworkStyle* networkStyle)
     quitAction->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_Q));
     quitAction->setMenuRole(QAction::QuitRole);
 
-    connect(toggleHideAction, &QAction::triggered, this, &PIVXGUI::toggleHidden);
+    connect(toggleHideAction, &QAction::triggered, this, &KSOCGUI::toggleHidden);
     connect(quitAction, &QAction::triggered, qApp, &QApplication::quit);
 }
 
 /**
  * Here add every event connection
  */
-void PIVXGUI::connectActions()
+void KSOCGUI::connectActions()
 {
     QShortcut *consoleShort = new QShortcut(this);
     consoleShort->setKey(QKeySequence(SHORT_KEY + Qt::Key_C));
@@ -191,26 +191,26 @@ void PIVXGUI::connectActions()
         settingsWidget->showDebugConsole();
         goToSettings();
     });
-    connect(topBar, &TopBar::showHide, this, &PIVXGUI::showHide);
-    connect(topBar, &TopBar::themeChanged, this, &PIVXGUI::changeTheme);
+    connect(topBar, &TopBar::showHide, this, &KSOCGUI::showHide);
+    connect(topBar, &TopBar::themeChanged, this, &KSOCGUI::changeTheme);
     connect(topBar, &TopBar::onShowHideColdStakingChanged, navMenu, &NavMenuWidget::onShowHideColdStakingChanged);
-    connect(settingsWidget, &SettingsWidget::showHide, this, &PIVXGUI::showHide);
-    connect(sendWidget, &SendWidget::showHide, this, &PIVXGUI::showHide);
-    connect(receiveWidget, &ReceiveWidget::showHide, this, &PIVXGUI::showHide);
-    connect(addressesWidget, &AddressesWidget::showHide, this, &PIVXGUI::showHide);
-    connect(masterNodesWidget, &MasterNodesWidget::showHide, this, &PIVXGUI::showHide);
-    connect(masterNodesWidget, &MasterNodesWidget::execDialog, this, &PIVXGUI::execDialog);
-    connect(coldStakingWidget, &ColdStakingWidget::showHide, this, &PIVXGUI::showHide);
-    connect(coldStakingWidget, &ColdStakingWidget::execDialog, this, &PIVXGUI::execDialog);
-    connect(settingsWidget, &SettingsWidget::execDialog, this, &PIVXGUI::execDialog);
+    connect(settingsWidget, &SettingsWidget::showHide, this, &KSOCGUI::showHide);
+    connect(sendWidget, &SendWidget::showHide, this, &KSOCGUI::showHide);
+    connect(receiveWidget, &ReceiveWidget::showHide, this, &KSOCGUI::showHide);
+    connect(addressesWidget, &AddressesWidget::showHide, this, &KSOCGUI::showHide);
+    connect(masterNodesWidget, &MasterNodesWidget::showHide, this, &KSOCGUI::showHide);
+    connect(masterNodesWidget, &MasterNodesWidget::execDialog, this, &KSOCGUI::execDialog);
+    connect(coldStakingWidget, &ColdStakingWidget::showHide, this, &KSOCGUI::showHide);
+    connect(coldStakingWidget, &ColdStakingWidget::execDialog, this, &KSOCGUI::execDialog);
+    connect(settingsWidget, &SettingsWidget::execDialog, this, &KSOCGUI::execDialog);
 }
 
 
-void PIVXGUI::createTrayIcon(const NetworkStyle* networkStyle)
+void KSOCGUI::createTrayIcon(const NetworkStyle* networkStyle)
 {
 #ifndef Q_OS_MAC
     trayIcon = new QSystemTrayIcon(this);
-    QString toolTip = tr("PIVX Core client") + " " + networkStyle->getTitleAddText();
+    QString toolTip = tr("KSOC Core client") + " " + networkStyle->getTitleAddText();
     trayIcon->setToolTip(toolTip);
     trayIcon->setIcon(networkStyle->getAppIcon());
     trayIcon->hide();
@@ -218,7 +218,7 @@ void PIVXGUI::createTrayIcon(const NetworkStyle* networkStyle)
     notificator = new Notificator(QApplication::applicationName(), trayIcon, this);
 }
 
-PIVXGUI::~PIVXGUI()
+KSOCGUI::~KSOCGUI()
 {
     // Unsubscribe from notifications from core
     unsubscribeFromCoreSignals();
@@ -233,14 +233,14 @@ PIVXGUI::~PIVXGUI()
 
 
 /** Get restart command-line parameters and request restart */
-void PIVXGUI::handleRestart(QStringList args)
+void KSOCGUI::handleRestart(QStringList args)
 {
     if (!ShutdownRequested())
         Q_EMIT requestedRestart(args);
 }
 
 
-void PIVXGUI::setClientModel(ClientModel* clientModel)
+void KSOCGUI::setClientModel(ClientModel* clientModel)
 {
     this->clientModel = clientModel;
     if (this->clientModel) {
@@ -254,7 +254,7 @@ void PIVXGUI::setClientModel(ClientModel* clientModel)
         settingsWidget->setClientModel(clientModel);
 
         // Receive and report messages from client model
-        connect(clientModel, &ClientModel::message, this, &PIVXGUI::message);
+        connect(clientModel, &ClientModel::message, this, &KSOCGUI::message);
         connect(topBar, &TopBar::walletSynced, dashboard, &DashboardWidget::walletSynced);
         connect(topBar, &TopBar::walletSynced, coldStakingWidget, &ColdStakingWidget::walletSynced);
 
@@ -278,7 +278,7 @@ void PIVXGUI::setClientModel(ClientModel* clientModel)
     }
 }
 
-void PIVXGUI::createTrayIconMenu()
+void KSOCGUI::createTrayIconMenu()
 {
 #ifndef Q_OS_MAC
     // return if trayIcon is unset (only on non-macOSes)
@@ -288,11 +288,11 @@ void PIVXGUI::createTrayIconMenu()
     trayIconMenu = new QMenu(this);
     trayIcon->setContextMenu(trayIconMenu);
 
-    connect(trayIcon, &QSystemTrayIcon::activated, this, &PIVXGUI::trayIconActivated);
+    connect(trayIcon, &QSystemTrayIcon::activated, this, &KSOCGUI::trayIconActivated);
 #else
     // Note: On macOS, the Dock icon is used to provide the tray's functionality.
     MacDockIconHandler* dockIconHandler = MacDockIconHandler::instance();
-    connect(dockIconHandler, &MacDockIconHandler::dockIconClicked, this, &PIVXGUI::macosDockIconActivated);
+    connect(dockIconHandler, &MacDockIconHandler::dockIconClicked, this, &KSOCGUI::macosDockIconActivated);
 
     trayIconMenu = new QMenu(this);
     trayIconMenu->setAsDockMenu();
@@ -309,7 +309,7 @@ void PIVXGUI::createTrayIconMenu()
 }
 
 #ifndef Q_OS_MAC
-void PIVXGUI::trayIconActivated(QSystemTrayIcon::ActivationReason reason)
+void KSOCGUI::trayIconActivated(QSystemTrayIcon::ActivationReason reason)
 {
     if (reason == QSystemTrayIcon::Trigger) {
         // Click on system tray icon triggers show/hide of the main window
@@ -317,14 +317,14 @@ void PIVXGUI::trayIconActivated(QSystemTrayIcon::ActivationReason reason)
     }
 }
 #else
-void PIVXGUI::macosDockIconActivated()
+void KSOCGUI::macosDockIconActivated()
  {
      show();
      activateWindow();
  }
 #endif
 
-void PIVXGUI::changeEvent(QEvent* e)
+void KSOCGUI::changeEvent(QEvent* e)
 {
     QMainWindow::changeEvent(e);
 #ifndef Q_OS_MAC // Ignored on Mac
@@ -332,7 +332,7 @@ void PIVXGUI::changeEvent(QEvent* e)
         if (clientModel && clientModel->getOptionsModel() && clientModel->getOptionsModel()->getMinimizeToTray()) {
             QWindowStateChangeEvent* wsevt = static_cast<QWindowStateChangeEvent*>(e);
             if (!(wsevt->oldState() & Qt::WindowMinimized) && isMinimized()) {
-                QTimer::singleShot(0, this, &PIVXGUI::hide);
+                QTimer::singleShot(0, this, &KSOCGUI::hide);
                 e->ignore();
             }
         }
@@ -340,7 +340,7 @@ void PIVXGUI::changeEvent(QEvent* e)
 #endif
 }
 
-void PIVXGUI::closeEvent(QCloseEvent* event)
+void KSOCGUI::closeEvent(QCloseEvent* event)
 {
 #ifndef Q_OS_MAC // Ignored on Mac
     if (clientModel && clientModel->getOptionsModel()) {
@@ -353,7 +353,7 @@ void PIVXGUI::closeEvent(QCloseEvent* event)
 }
 
 
-void PIVXGUI::messageInfo(const QString& text)
+void KSOCGUI::messageInfo(const QString& text)
 {
     if (!this->snackBar) this->snackBar = new SnackBar(this, this);
     this->snackBar->setText(text);
@@ -362,9 +362,9 @@ void PIVXGUI::messageInfo(const QString& text)
 }
 
 
-void PIVXGUI::message(const QString& title, const QString& message, unsigned int style, bool* ret)
+void KSOCGUI::message(const QString& title, const QString& message, unsigned int style, bool* ret)
 {
-    QString strTitle =  tr("PIVX Core"); // default title
+    QString strTitle =  tr("KSOC Core"); // default title
     // Default to information icon
     int nNotifyIcon = Notificator::Information;
 
@@ -414,14 +414,14 @@ void PIVXGUI::message(const QString& title, const QString& message, unsigned int
     } else if (style & CClientUIInterface::MSG_INFORMATION_SNACK) {
         messageInfo(message);
     } else {
-        // Append title to "PIVX - "
+        // Append title to "KSOC - "
         if (!msgType.isEmpty())
             strTitle += " - " + msgType;
         notificator->notify((Notificator::Class) nNotifyIcon, strTitle, message);
     }
 }
 
-bool PIVXGUI::openStandardDialog(QString title, QString body, QString okBtn, QString cancelBtn)
+bool KSOCGUI::openStandardDialog(QString title, QString body, QString okBtn, QString cancelBtn)
 {
     DefaultDialog *dialog;
     if (isVisible()) {
@@ -433,7 +433,7 @@ bool PIVXGUI::openStandardDialog(QString title, QString body, QString okBtn, QSt
     } else {
         dialog = new DefaultDialog();
         dialog->setText(title, body, okBtn);
-        dialog->setWindowTitle(tr("PIVX Core"));
+        dialog->setWindowTitle(tr("KSOC Core"));
         dialog->adjustSize();
         dialog->raise();
         dialog->exec();
@@ -444,7 +444,7 @@ bool PIVXGUI::openStandardDialog(QString title, QString body, QString okBtn, QSt
 }
 
 
-void PIVXGUI::showNormalIfMinimized(bool fToggleHidden)
+void KSOCGUI::showNormalIfMinimized(bool fToggleHidden)
 {
     if (!clientModel)
         return;
@@ -455,12 +455,12 @@ void PIVXGUI::showNormalIfMinimized(bool fToggleHidden)
     }
 }
 
-void PIVXGUI::toggleHidden()
+void KSOCGUI::toggleHidden()
 {
     showNormalIfMinimized(true);
 }
 
-void PIVXGUI::detectShutdown()
+void KSOCGUI::detectShutdown()
 {
     if (ShutdownRequested()) {
         if (rpcConsole)
@@ -469,7 +469,7 @@ void PIVXGUI::detectShutdown()
     }
 }
 
-void PIVXGUI::goToDashboard()
+void KSOCGUI::goToDashboard()
 {
     if (stackedContainer->currentWidget() != dashboard) {
         stackedContainer->setCurrentWidget(dashboard);
@@ -477,48 +477,48 @@ void PIVXGUI::goToDashboard()
     }
 }
 
-void PIVXGUI::goToSend()
+void KSOCGUI::goToSend()
 {
     showTop(sendWidget);
 }
 
-void PIVXGUI::goToAddresses()
+void KSOCGUI::goToAddresses()
 {
     showTop(addressesWidget);
 }
 
-void PIVXGUI::goToMasterNodes()
+void KSOCGUI::goToMasterNodes()
 {
     showTop(masterNodesWidget);
 }
 
-void PIVXGUI::goToColdStaking()
+void KSOCGUI::goToColdStaking()
 {
     showTop(coldStakingWidget);
 }
 
-void PIVXGUI::goToSettings(){
+void KSOCGUI::goToSettings(){
     showTop(settingsWidget);
 }
 
-void PIVXGUI::goToSettingsInfo()
+void KSOCGUI::goToSettingsInfo()
 {
     navMenu->selectSettings();
     settingsWidget->showInformation();
     goToSettings();
 }
 
-void PIVXGUI::goToReceive()
+void KSOCGUI::goToReceive()
 {
     showTop(receiveWidget);
 }
 
-void PIVXGUI::openNetworkMonitor()
+void KSOCGUI::openNetworkMonitor()
 {
     settingsWidget->openNetworkMonitor();
 }
 
-void PIVXGUI::showTop(QWidget* view)
+void KSOCGUI::showTop(QWidget* view)
 {
     if (stackedContainer->currentWidget() != view) {
         stackedContainer->setCurrentWidget(view);
@@ -526,7 +526,7 @@ void PIVXGUI::showTop(QWidget* view)
     }
 }
 
-void PIVXGUI::changeTheme(bool isLightTheme)
+void KSOCGUI::changeTheme(bool isLightTheme)
 {
 
     QString css = GUIUtil::loadStyleSheet();
@@ -539,7 +539,7 @@ void PIVXGUI::changeTheme(bool isLightTheme)
     updateStyle(this);
 }
 
-void PIVXGUI::resizeEvent(QResizeEvent* event)
+void KSOCGUI::resizeEvent(QResizeEvent* event)
 {
     // Parent..
     QMainWindow::resizeEvent(event);
@@ -549,12 +549,12 @@ void PIVXGUI::resizeEvent(QResizeEvent* event)
     Q_EMIT windowResizeEvent(event);
 }
 
-bool PIVXGUI::execDialog(QDialog *dialog, int xDiv, int yDiv)
+bool KSOCGUI::execDialog(QDialog *dialog, int xDiv, int yDiv)
 {
     return openDialogWithOpaqueBackgroundY(dialog, this);
 }
 
-void PIVXGUI::showHide(bool show)
+void KSOCGUI::showHide(bool show)
 {
     if (!op) op = new QLabel(this);
     if (!show) {
@@ -582,12 +582,12 @@ void PIVXGUI::showHide(bool show)
     }
 }
 
-int PIVXGUI::getNavWidth()
+int KSOCGUI::getNavWidth()
 {
     return this->navMenu->width();
 }
 
-void PIVXGUI::openFAQ(int section)
+void KSOCGUI::openFAQ(int section)
 {
     showHide(true);
     SettingsFaqWidget* dialog = new SettingsFaqWidget(this);
@@ -598,7 +598,7 @@ void PIVXGUI::openFAQ(int section)
 
 
 #ifdef ENABLE_WALLET
-bool PIVXGUI::addWallet(const QString& name, WalletModel* walletModel)
+bool KSOCGUI::addWallet(const QString& name, WalletModel* walletModel)
 {
     // Single wallet supported for now..
     if (!stackedContainer || !clientModel || !walletModel)
@@ -616,33 +616,33 @@ bool PIVXGUI::addWallet(const QString& name, WalletModel* walletModel)
     settingsWidget->setWalletModel(walletModel);
 
     // Connect actions..
-    connect(walletModel, &WalletModel::message, this, &PIVXGUI::message);
-    connect(masterNodesWidget, &MasterNodesWidget::message, this, &PIVXGUI::message);
-    connect(coldStakingWidget, &ColdStakingWidget::message, this, &PIVXGUI::message);
-    connect(topBar, &TopBar::message, this, &PIVXGUI::message);
-    connect(sendWidget, &SendWidget::message,this, &PIVXGUI::message);
-    connect(receiveWidget, &ReceiveWidget::message,this, &PIVXGUI::message);
-    connect(addressesWidget, &AddressesWidget::message,this, &PIVXGUI::message);
-    connect(settingsWidget, &SettingsWidget::message, this, &PIVXGUI::message);
+    connect(walletModel, &WalletModel::message, this, &KSOCGUI::message);
+    connect(masterNodesWidget, &MasterNodesWidget::message, this, &KSOCGUI::message);
+    connect(coldStakingWidget, &ColdStakingWidget::message, this, &KSOCGUI::message);
+    connect(topBar, &TopBar::message, this, &KSOCGUI::message);
+    connect(sendWidget, &SendWidget::message,this, &KSOCGUI::message);
+    connect(receiveWidget, &ReceiveWidget::message,this, &KSOCGUI::message);
+    connect(addressesWidget, &AddressesWidget::message,this, &KSOCGUI::message);
+    connect(settingsWidget, &SettingsWidget::message, this, &KSOCGUI::message);
 
     // Pass through transaction notifications
-    connect(dashboard, &DashboardWidget::incomingTransaction, this, &PIVXGUI::incomingTransaction);
+    connect(dashboard, &DashboardWidget::incomingTransaction, this, &KSOCGUI::incomingTransaction);
 
     return true;
 }
 
-bool PIVXGUI::setCurrentWallet(const QString& name)
+bool KSOCGUI::setCurrentWallet(const QString& name)
 {
     // Single wallet supported.
     return true;
 }
 
-void PIVXGUI::removeAllWallets()
+void KSOCGUI::removeAllWallets()
 {
     // Single wallet supported.
 }
 
-void PIVXGUI::incomingTransaction(const QString& date, int unit, const CAmount& amount, const QString& type, const QString& address)
+void KSOCGUI::incomingTransaction(const QString& date, int unit, const CAmount& amount, const QString& type, const QString& address)
 {
     // Only send notifications when not disabled
     if (!bdisableSystemnotifications) {
@@ -665,7 +665,7 @@ void PIVXGUI::incomingTransaction(const QString& date, int unit, const CAmount& 
 #endif // ENABLE_WALLET
 
 
-static bool ThreadSafeMessageBox(PIVXGUI* gui, const std::string& message, const std::string& caption, unsigned int style)
+static bool ThreadSafeMessageBox(KSOCGUI* gui, const std::string& message, const std::string& caption, unsigned int style)
 {
     bool modal = (style & CClientUIInterface::MODAL);
     // The SECURE flag has no effect in the Qt GUI.
@@ -684,13 +684,13 @@ static bool ThreadSafeMessageBox(PIVXGUI* gui, const std::string& message, const
 }
 
 
-void PIVXGUI::subscribeToCoreSignals()
+void KSOCGUI::subscribeToCoreSignals()
 {
     // Connect signals to client
     uiInterface.ThreadSafeMessageBox.connect(boost::bind(ThreadSafeMessageBox, this, _1, _2, _3));
 }
 
-void PIVXGUI::unsubscribeFromCoreSignals()
+void KSOCGUI::unsubscribeFromCoreSignals()
 {
     // Disconnect signals from client
     uiInterface.ThreadSafeMessageBox.disconnect(boost::bind(ThreadSafeMessageBox, this, _1, _2, _3));

@@ -1,12 +1,12 @@
-// Copyright (c) 2019-2020 The PIVX developers
+// Copyright (c) 2019-2020 The KSOC developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef PIVX_CORE_NEW_GUI_PIVXGUI_H
-#define PIVX_CORE_NEW_GUI_PIVXGUI_H
+#ifndef KSOC_CORE_NEW_GUI_KSOCGUI_H
+#define KSOC_CORE_NEW_GUI_KSOCGUI_H
 
 #if defined(HAVE_CONFIG_H)
-#include "config/pivx-config.h"
+#include "config/ksoc-config.h"
 #endif
 
 #include <QMainWindow>
@@ -14,16 +14,16 @@
 #include <QSystemTrayIcon>
 #include <QLabel>
 
-#include "qt/pivx/navmenuwidget.h"
-#include "qt/pivx/topbar.h"
-#include "qt/pivx/dashboardwidget.h"
-#include "qt/pivx/send.h"
-#include "qt/pivx/receivewidget.h"
-#include "qt/pivx/addresseswidget.h"
-#include "qt/pivx/coldstakingwidget.h"
-#include "qt/pivx/masternodeswidget.h"
-#include "qt/pivx/snackbar.h"
-#include "qt/pivx/settings/settingswidget.h"
+#include "qt/ksoc/navmenuwidget.h"
+#include "qt/ksoc/topbar.h"
+#include "qt/ksoc/dashboardwidget.h"
+#include "qt/ksoc/send.h"
+#include "qt/ksoc/receivewidget.h"
+#include "qt/ksoc/addresseswidget.h"
+#include "qt/ksoc/coldstakingwidget.h"
+#include "qt/ksoc/masternodeswidget.h"
+#include "qt/ksoc/snackbar.h"
+#include "qt/ksoc/settings/settingswidget.h"
 #include "qt/rpcconsole.h"
 
 
@@ -34,18 +34,18 @@ class WalletModel;
 
 
 /**
-  PIVX GUI main class. This class represents the main window of the PIVX UI. It communicates with both the client and
+  KSOC GUI main class. This class represents the main window of the KSOC UI. It communicates with both the client and
   wallet models to give the user an up-to-date view of the current core state.
 */
-class PIVXGUI : public QMainWindow
+class KSOCGUI : public QMainWindow
 {
     Q_OBJECT
 
 public:
     static const QString DEFAULT_WALLET;
 
-    explicit PIVXGUI(const NetworkStyle* networkStyle, QWidget* parent = 0);
-    ~PIVXGUI();
+    explicit KSOCGUI(const NetworkStyle* networkStyle, QWidget* parent = 0);
+    ~KSOCGUI();
 
     /** Set the client model.
         The client model represents the part of the core that communicates with the P2P network, and is wallet-agnostic.
@@ -189,4 +189,4 @@ Q_SIGNALS:
 };
 
 
-#endif //PIVX_CORE_NEW_GUI_PIVXGUI_H
+#endif //KSOC_CORE_NEW_GUI_KSOCGUI_H

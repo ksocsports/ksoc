@@ -1,9 +1,9 @@
-// Copyright (c) 2015-2019 The PIVX developers
+// Copyright (c) 2015-2019 The KSOC developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef PIVX_TEST_TEST_PIVX_H
-#define PIVX_TEST_TEST_PIVX_H
+#ifndef KSOC_TEST_TEST_KSOC_H
+#define KSOC_TEST_TEST_KSOC_H
 
 #include "fs.h"
 #include "txdb.h"

@@ -1,17 +1,17 @@
-// Copyright (c) 2019-2020 The PIVX developers
+// Copyright (c) 2019-2020 The KSOC developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#include "qt/pivx/addresseswidget.h"
-#include "qt/pivx/forms/ui_addresseswidget.h"
-#include "qt/pivx/addresslabelrow.h"
-#include "qt/pivx/addnewaddressdialog.h"
-#include "qt/pivx/tooltipmenu.h"
+#include "qt/ksoc/addresseswidget.h"
+#include "qt/ksoc/forms/ui_addresseswidget.h"
+#include "qt/ksoc/addresslabelrow.h"
+#include "qt/ksoc/addnewaddressdialog.h"
+#include "qt/ksoc/tooltipmenu.h"
 
-#include "qt/pivx/addnewcontactdialog.h"
-#include "qt/pivx/pivxgui.h"
+#include "qt/ksoc/addnewcontactdialog.h"
+#include "qt/ksoc/ksocgui.h"
 #include "guiutil.h"
-#include "qt/pivx/qtutils.h"
+#include "qt/ksoc/qtutils.h"
 #include "walletmodel.h"
 
 #include <QModelIndex>
@@ -58,7 +58,7 @@ public:
 };
 
 
-AddressesWidget::AddressesWidget(PIVXGUI* parent) :
+AddressesWidget::AddressesWidget(KSOCGUI* parent) :
     PWidget(parent),
     ui(new Ui::AddressesWidget)
 {

@@ -1,9 +1,9 @@
-// Copyright (c) 2020 The PIVX developers
+// Copyright (c) 2020 The KSOC developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef PIVX_CONSENSUS_ZEROCOIN_VERIFY_H
-#define PIVX_CONSENSUS_ZEROCOIN_VERIFY_H
+#ifndef KSOC_CONSENSUS_ZEROCOIN_VERIFY_H
+#define KSOC_CONSENSUS_ZEROCOIN_VERIFY_H
 
 #include "consensus/consensus.h"
 #include "main.h"
@@ -23,4 +23,4 @@ bool ContextualCheckZerocoinSpendNoSerialCheck(const CTransaction& tx, const lib
 bool RecalculatePIVSupply(int nHeightStart, bool fSkipZpiv = true);
 CAmount GetInvalidUTXOValue();
 
-#endif //PIVX_CONSENSUS_ZEROCOIN_VERIFY_H
+#endif //KSOC_CONSENSUS_ZEROCOIN_VERIFY_H

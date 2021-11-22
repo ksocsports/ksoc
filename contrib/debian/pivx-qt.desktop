@@ -1,13 +1,13 @@
 [Desktop Entry]
 Version=1.0
-Name=PIVX Core
-Comment=PIVX P2P Cryptocurrency
-Comment[fr]=PIVX, monnaie virtuelle cryptographique pair à pair
-Comment[tr]=PIVX, eşten eşe kriptografik sanal para birimi
-Exec=pivx-qt %u
+Name=KSOC Core
+Comment=KSOC P2P Cryptocurrency
+Comment[fr]=KSOC, monnaie virtuelle cryptographique pair à pair
+Comment[tr]=KSOC, eşten eşe kriptografik sanal para birimi
+Exec=ksoc-qt %u
 Terminal=false
 Type=Application
-Icon=pivx128
-MimeType=x-scheme-handler/pivx;
+Icon=ksoc128
+MimeType=x-scheme-handler/ksoc;
 Categories=Office;Finance;
-StartupWMClass=Pivx-qt
+StartupWMClass=Ksoc-qt

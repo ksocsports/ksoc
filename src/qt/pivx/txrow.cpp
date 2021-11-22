@@ -1,12 +1,12 @@
-// Copyright (c) 2019-2020 The PIVX developers
+// Copyright (c) 2019-2020 The KSOC developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#include "qt/pivx/txrow.h"
-#include "qt/pivx/forms/ui_txrow.h"
+#include "qt/ksoc/txrow.h"
+#include "qt/ksoc/forms/ui_txrow.h"
 
 #include "guiutil.h"
-#include "qt/pivx/qtutils.h"
+#include "qt/ksoc/qtutils.h"
 
 TxRow::TxRow(QWidget *parent) :
     QWidget(parent),

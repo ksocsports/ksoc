@@ -1,10 +1,10 @@
-// Copyright (c) 2019 The PIVX developers
+// Copyright (c) 2019 The KSOC developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#include "qt/pivx/optionbutton.h"
-#include "qt/pivx/forms/ui_optionbutton.h"
-#include "qt/pivx/qtutils.h"
+#include "qt/ksoc/optionbutton.h"
+#include "qt/ksoc/forms/ui_optionbutton.h"
+#include "qt/ksoc/qtutils.h"
 #include <QMouseEvent>
 
 OptionButton::OptionButton(QWidget *parent) :

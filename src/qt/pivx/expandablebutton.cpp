@@ -1,10 +1,10 @@
-// Copyright (c) 2019-2020 The PIVX developers
+// Copyright (c) 2019-2020 The KSOC developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#include "qt/pivx/expandablebutton.h"
-#include "qt/pivx/forms/ui_expandablebutton.h"
-#include "qt/pivx/qtutils.h"
+#include "qt/ksoc/expandablebutton.h"
+#include "qt/ksoc/forms/ui_expandablebutton.h"
+#include "qt/ksoc/qtutils.h"
 #include <QParallelAnimationGroup>
 #include <QPropertyAnimation>
 #include <QStyle>

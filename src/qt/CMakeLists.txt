@@ -2,7 +2,7 @@ CMAKE_MINIMUM_REQUIRED(VERSION 3.10)
 
 set(QT_MINIMUM_VERSION 5.5.1)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
-set(CMAKE_AUTOUIC_SEARCH_PATHS ${CMAKE_CURRENT_SOURCE_DIR}/forms ${CMAKE_CURRENT_SOURCE_DIR}/pivx/forms ${CMAKE_CURRENT_SOURCE_DIR}/pivx/settings/forms)
+set(CMAKE_AUTOUIC_SEARCH_PATHS ${CMAKE_CURRENT_SOURCE_DIR}/forms ${CMAKE_CURRENT_SOURCE_DIR}/ksoc/forms ${CMAKE_CURRENT_SOURCE_DIR}/ksoc/settings/forms)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
@@ -111,80 +111,80 @@ SET(QT_SOURCES
         ${CMAKE_CURRENT_SOURCE_DIR}/transactiontablemodel.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/walletmodel.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/walletmodeltransaction.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/pivx/pivxgui.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/pivx/loadingdialog.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/pivx/pwidget.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/pivx/focuseddialog.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/pivx/guitransactionsutils.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/pivx/snackbar.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/pivx/navmenuwidget.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/pivx/lockunlock.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/pivx/receivedialog.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/pivx/furabstractlistitemdelegate.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/pivx/txviewholder.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/pivx/qtutils.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/pivx/expandablebutton.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/pivx/topbar.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/pivx/txrow.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/pivx/addressfilterproxymodel.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/pivx/dashboardwidget.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/pivx/addresslabelrow.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/pivx/contactdropdownrow.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/pivx/contactsdropdown.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/pivx/optionbutton.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/pivx/mninfodialog.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/pivx/coldstakingmodel.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/pivx/mnmodel.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/pivx/masternodewizarddialog.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/pivx/mnrow.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/pivx/masternodeswidget.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/pivx/sendchangeaddressdialog.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/pivx/sendconfirmdialog.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/pivx/sendcustomfeedialog.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/pivx/sendchangeaddressdialog.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/pivx/sendmultirow.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/pivx/send.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/pivx/addnewaddressdialog.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/pivx/addnewcontactdialog.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/pivx/requestdialog.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/pivx/receivewidget.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/pivx/myaddressrow.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/pivx/csrow.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/pivx/addressholder.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/pivx/tooltipmenu.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/pivx/addresseswidget.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/pivx/defaultdialog.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/pivx/coldstakingwidget.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/pivx/settings/settingsbackupwallet.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/pivx/settings/settingsbittoolwidget.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/pivx/settings/settingsconsolewidget.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/pivx/settings/settingsdisplayoptionswidget.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/pivx/settings/settingsfaqwidget.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/pivx/settings/settingsinformationwidget.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/pivx/settings/settingsmainoptionswidget.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/pivx/settings/settingsmultisenddialog.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/pivx/settings/settingsmultisendwidget.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/pivx/settings/settingssignmessagewidgets.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/pivx/settings/settingswalletoptionswidget.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/pivx/settings/settingswalletrepairwidget.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/pivx/settings/settingsexportcsv.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/pivx/settings/settingswidget.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/pivx/welcomecontentwidget.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/pivx/splash.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/ksoc/ksocgui.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/ksoc/loadingdialog.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/ksoc/pwidget.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/ksoc/focuseddialog.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/ksoc/guitransactionsutils.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/ksoc/snackbar.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/ksoc/navmenuwidget.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/ksoc/lockunlock.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/ksoc/receivedialog.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/ksoc/furabstractlistitemdelegate.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/ksoc/txviewholder.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/ksoc/qtutils.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/ksoc/expandablebutton.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/ksoc/topbar.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/ksoc/txrow.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/ksoc/addressfilterproxymodel.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/ksoc/dashboardwidget.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/ksoc/addresslabelrow.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/ksoc/contactdropdownrow.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/ksoc/contactsdropdown.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/ksoc/optionbutton.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/ksoc/mninfodialog.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/ksoc/coldstakingmodel.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/ksoc/mnmodel.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/ksoc/masternodewizarddialog.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/ksoc/mnrow.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/ksoc/masternodeswidget.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/ksoc/sendchangeaddressdialog.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/ksoc/sendconfirmdialog.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/ksoc/sendcustomfeedialog.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/ksoc/sendchangeaddressdialog.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/ksoc/sendmultirow.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/ksoc/send.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/ksoc/addnewaddressdialog.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/ksoc/addnewcontactdialog.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/ksoc/requestdialog.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/ksoc/receivewidget.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/ksoc/myaddressrow.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/ksoc/csrow.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/ksoc/addressholder.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/ksoc/tooltipmenu.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/ksoc/addresseswidget.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/ksoc/defaultdialog.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/ksoc/coldstakingwidget.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/ksoc/settings/settingsbackupwallet.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/ksoc/settings/settingsbittoolwidget.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/ksoc/settings/settingsconsolewidget.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/ksoc/settings/settingsdisplayoptionswidget.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/ksoc/settings/settingsfaqwidget.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/ksoc/settings/settingsinformationwidget.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/ksoc/settings/settingsmainoptionswidget.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/ksoc/settings/settingsmultisenddialog.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/ksoc/settings/settingsmultisendwidget.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/ksoc/settings/settingssignmessagewidgets.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/ksoc/settings/settingswalletoptionswidget.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/ksoc/settings/settingswalletrepairwidget.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/ksoc/settings/settingsexportcsv.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/ksoc/settings/settingswidget.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/ksoc/welcomecontentwidget.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/ksoc/splash.cpp
         )
 
 # Workaround until the old rpcconsole UI window is fully removed
-set_property(SOURCE ${CMAKE_CURRENT_SOURCE_DIR}/pivx/settings/settingsconsolewidget.cpp PROPERTY SKIP_AUTOMOC ON)
+set_property(SOURCE ${CMAKE_CURRENT_SOURCE_DIR}/ksoc/settings/settingsconsolewidget.cpp PROPERTY SKIP_AUTOMOC ON)
 execute_process(
         COMMAND ${MOC_BIN} -o moc_settingsconsolewidget.cpp settingsconsolewidget.h
-        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/pivx/settings
+        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/ksoc/settings
 )
 
 execute_process(
         COMMAND ${MOC_BIN} -o moc_pfborderimage.cpp pfborderimage.h
-        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/pivx
+        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/ksoc
 )
-list(APPEND QT_SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/pivx/moc_pfborderimage.cpp)
+list(APPEND QT_SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/ksoc/moc_pfborderimage.cpp)
 
 if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
     list(APPEND QT_SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/macdockiconhandler.mm)
@@ -197,8 +197,8 @@ target_include_directories(qt_stuff PUBLIC ${CMAKE_SOURCE_DIR}/src
         ${CMAKE_SOURCE_DIR}/src/univalue/include
         ${CMAKE_SOURCE_DIR}/src/secp256k1/include
         ${CMAKE_CURRENT_SOURCE_DIR}
-        ${CMAKE_CURRENT_SOURCE_DIR}/pivx
-        ${CMAKE_CURRENT_SOURCE_DIR}/pivx/settings
+        ${CMAKE_CURRENT_SOURCE_DIR}/ksoc
+        ${CMAKE_CURRENT_SOURCE_DIR}/ksoc/settings
         ${OPENSSL_INCLUDE_DIR}
         ${BerkeleyDB_INCLUDE_DIRS}
         )
@@ -212,13 +212,13 @@ set_source_files_properties(${QT_TRANSLATIONS_FILES} PROPERTIES OUTPUT_LOCATION 
 QT5_ADD_TRANSLATION(QM ${QT_TRANSLATIONS_FILES})
 add_custom_target(translations_target ALL DEPENDS ${QM})
 
-QT5_ADD_RESOURCES(QRC_RESOURCE pivx.qrc)
-QT5_ADD_RESOURCES(QRC_LOCALE_RESOURCE pivx_locale.qrc)
+QT5_ADD_RESOURCES(QRC_RESOURCE ksoc.qrc)
+QT5_ADD_RESOURCES(QRC_LOCALE_RESOURCE ksoc_locale.qrc)
 
-add_executable(pivx-qt pivx.cpp ${QM} ${QRC_RESOURCE} ${QRC_LOCALE_RESOURCE})
-add_dependencies(pivx-qt translations_target libunivalue libsecp256k1 libzcashrust leveldb crc32c)
-target_include_directories(pivx-qt PUBLIC ${ENDIAN_INCLUDES})
-target_link_libraries(pivx-qt
+add_executable(ksoc-qt ksoc.cpp ${QM} ${QRC_RESOURCE} ${QRC_LOCALE_RESOURCE})
+add_dependencies(ksoc-qt translations_target libunivalue libsecp256k1 libzcashrust leveldb crc32c)
+target_include_directories(ksoc-qt PUBLIC ${ENDIAN_INCLUDES})
+target_link_libraries(ksoc-qt
         qt_stuff
         univalue
         SERVER_A UTIL_A WALLET_A CLI_A COMMON_A BITCOIN_CRYPTO_A ZEROCOIN_A SAPLING_A
@@ -228,30 +228,30 @@ target_link_libraries(pivx-qt
         -ldl pthread
         )
 if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
-    target_link_libraries(pivx-qt "-framework Cocoa")
+    target_link_libraries(ksoc-qt "-framework Cocoa")
 endif()
 if(GMP_FOUND)
-    target_link_libraries(pivx-qt ${GMP_LIBRARY})
-    target_include_directories(pivx-qt PUBLIC ${GMP_INCLUDE_DIR})
+    target_link_libraries(ksoc-qt ${GMP_LIBRARY})
+    target_include_directories(ksoc-qt PUBLIC ${GMP_INCLUDE_DIR})
 endif()
 if(ZMQ_FOUND)
-    target_link_libraries(pivx-qt ZMQ_A ${ZMQ_LIB})
-    target_include_directories(pivx-qt PUBLIC ${ZMQ_INCLUDE_DIR})
+    target_link_libraries(ksoc-qt ZMQ_A ${ZMQ_LIB})
+    target_include_directories(ksoc-qt PUBLIC ${ZMQ_INCLUDE_DIR})
 endif()
 if (QRCODE_FOUND)
-    target_link_libraries(pivx-qt ${QRCODE_LIB})
-    target_include_directories(pivx-qt PUBLIC ${QRCODE_INCLUDE_DIR})
+    target_link_libraries(ksoc-qt ${QRCODE_LIB})
+    target_include_directories(ksoc-qt PUBLIC ${QRCODE_INCLUDE_DIR})
 endif()
 if(MINIUPNP_FOUND)
-    target_compile_definitions(pivx-qt PUBLIC "-DSTATICLIB -DMINIUPNP_STATICLIB")
-    target_link_libraries(pivx-qt ${MINIUPNP_LIBRARY})
-    target_include_directories(pivx-qt PUBLIC ${MINIUPNP_INCLUDE_DIR})
+    target_compile_definitions(ksoc-qt PUBLIC "-DSTATICLIB -DMINIUPNP_STATICLIB")
+    target_link_libraries(ksoc-qt ${MINIUPNP_LIBRARY})
+    target_include_directories(ksoc-qt PUBLIC ${MINIUPNP_INCLUDE_DIR})
 endif()
 
-target_link_libraries(pivx-qt Qt5::Gui Qt5::Core Qt5::Widgets Qt5::Network Qt5::Svg ${QT_LIBRARIES})
+target_link_libraries(ksoc-qt Qt5::Gui Qt5::Core Qt5::Widgets Qt5::Network Qt5::Svg ${QT_LIBRARIES})
 if (Qt5DBus_FOUND)
-    target_link_libraries(pivx-qt Qt5::DBus ${QT_LIBRARIES})
+    target_link_libraries(ksoc-qt Qt5::DBus ${QT_LIBRARIES})
 endif()
 if (Qt5Charts_FOUND)
-    target_link_libraries(pivx-qt Qt5::Charts ${QT_LIBRARIES})
+    target_link_libraries(ksoc-qt Qt5::Charts ${QT_LIBRARIES})
 endif()

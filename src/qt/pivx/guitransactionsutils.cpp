@@ -1,8 +1,8 @@
-// Copyright (c) 2019-2020 The PIVX developers
+// Copyright (c) 2019-2020 The KSOC developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#include "qt/pivx/guitransactionsutils.h"
+#include "qt/ksoc/guitransactionsutils.h"
 #include "bitcoinunits.h"
 #include "optionsmodel.h"
 

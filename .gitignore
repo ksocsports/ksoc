@@ -7,13 +7,13 @@ reset-files.bash
 *.tar.gz
 
 *.exe
-src/pivx
-src/pivxd
-src/pivx-cli
-src/pivx-tx
-src/bench/bench_pivx
-src/test/test_pivx
-src/qt/test/test_pivx-qt
+src/ksoc
+src/ksocd
+src/ksoc-cli
+src/ksoc-tx
+src/bench/bench_ksoc
+src/test/test_ksoc
+src/qt/test/test_ksoc-qt
 
 # autoreconf
 Makefile.in
@@ -39,8 +39,8 @@ confdefs.h
 conftest.cpp
 conftest.err
 libtool
-src/config/pivx-config.h
-src/config/pivx-config.h.in
+src/config/ksoc-config.h
+src/config/ksoc-config.h.in
 src/config/stamp-h1
 share/setup.nsi
 share/qt/Info.plist
@@ -65,7 +65,7 @@ src/qt/test/moc*.cpp
 *.pyc
 *.o
 *.o-*
-.pivx
+.ksoc
 *.a
 *.pb.cc
 *.pb.h
@@ -84,8 +84,8 @@ src/qt/test/moc*.cpp
 # Compilation and Qt preprocessor part
 *.qm
 Makefile
-pivx-qt
-PIVX-Qt.app
+ksoc-qt
+KSOC-Qt.app
 background.tiff*
 
 # Rust
@@ -95,7 +95,7 @@ target/
 
 # Unit-tests
 Makefile.test
-pivx-qt_test
+ksoc-qt_test
 src/test/buildenv.py
 
 # Resources cpp
@@ -111,7 +111,7 @@ build
 #lcov
 *.gcno
 /*.info
-test_pivx.coverage/
+test_ksoc.coverage/
 total.coverage/
 coverage_percent.txt
 
@@ -142,5 +142,5 @@ moc_*
 *.tmp
 ui_*
 build*
-pivxd.*
-pivxd-new-gui.*
+ksocd.*
+ksocd-new-gui.*

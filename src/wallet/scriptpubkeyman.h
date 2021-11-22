@@ -1,10 +1,10 @@
 // Copyright (c) 2019 The Bitcoin Core developers
-// Copyright (c) 2020 The PIVX developers
+// Copyright (c) 2020 The KSOC developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef PIVX_SCRIPTPUBKEYMAN_H
-#define PIVX_SCRIPTPUBKEYMAN_H
+#ifndef KSOC_SCRIPTPUBKEYMAN_H
+#define KSOC_SCRIPTPUBKEYMAN_H
 
 #include "wallet/hdchain.h"
 #include "wallet/wallet.h"
@@ -160,4 +160,4 @@ private:
 };
 
 
-#endif //PIVX_SCRIPTPUBKEYMAN_H
+#endif //KSOC_SCRIPTPUBKEYMAN_H

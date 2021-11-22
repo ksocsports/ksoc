@@ -1,9 +1,9 @@
-// Copyright (c) 2019 The PIVX developers
+// Copyright (c) 2019 The KSOC developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef PIVX_PFBorderImage_H
-#define PIVX_PFBorderImage_H
+#ifndef KSOC_PFBorderImage_H
+#define KSOC_PFBorderImage_H
 
 #include <QPainter>
 #include <QPixmap>
@@ -52,4 +52,4 @@ protected:
 
 };
 
-#endif //PIVX_PFBorderImage_H
+#endif //KSOC_PFBorderImage_H

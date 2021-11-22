@@ -5,19 +5,19 @@
 # See "man systemd.service" for details.
 
 # Note that almost all daemon options could be specified in
-# /etc/pivx/pivx.conf
+# /etc/ksoc/ksoc.conf
 
 [Unit]
-Description=PIVX daemon
+Description=KSOC daemon
 After=network.target
 
 [Service]
-ExecStart=/usr/bin/pivxd -daemon -conf=/etc/pivx/pivx.conf -pid=/run/pivxd/pivxd.pid
-# Creates /run/pivxd owned by pivx
-RuntimeDirectory=pivxd
-User=pivx
+ExecStart=/usr/bin/ksocd -daemon -conf=/etc/ksoc/ksoc.conf -pid=/run/ksocd/ksocd.pid
+# Creates /run/ksocd owned by ksoc
+RuntimeDirectory=ksocd
+User=ksoc
 Type=forking
-PIDFile=/run/pivxd/pivxd.pid
+PIDFile=/run/ksocd/ksocd.pid
 Restart=on-failure
 
 # Hardening measures
