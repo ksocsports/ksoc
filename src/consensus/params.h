@@ -105,6 +105,9 @@ struct Params {
     int64_t nTargetTimespanV2;
     int64_t nTargetSpacing;
     int nTimeSlotLength;
+    std::string strObfuscationPoolDummyAddress;
+    std::string strDevFeeAddress;
+    std::string strDevFeeAddress1;
 
     // spork keys
     std::string strSporkPubKey;
@@ -113,12 +116,23 @@ struct Params {
     int64_t nTime_RejectOldSporkKey;
 
     // height-based activations
+    int height_last_PoW;
     int height_last_ZC_AccumCheckpoint;
     int height_last_ZC_WrappedSerials;
     int height_start_InvalidUTXOsCheck;
     int height_start_ZC_InvalidSerials;
     int height_start_ZC_SerialRangeCheck;
     int height_ZC_RecalcAccumulators;
+
+    int height_RHF;
+    int height_start_BIP65;
+    int height_start_MessSignaturesV2;
+    int height_start_StakeModifierNewSelection;
+    int height_start_StakeModifierV2;
+    int height_start_TimeProtoV2;
+    int height_start_ZC;
+    int height_start_ZC_PublicSpends;
+    int height_start_ZC_SerialsV2;
 
     // validation by-pass
     int64_t nPivxBadBlockTime;
@@ -130,7 +144,10 @@ struct Params {
     int64_t TargetTimespan(const bool fV2 = true) const { return fV2 ? nTargetTimespanV2 : nTargetTimespan; }
     uint256 ProofOfStakeLimit(const bool fV2) const { return fV2 ? posLimitV2 : posLimitV1; }
     bool MoneyRange(const CAmount& nValue) const { return (nValue >= 0 && nValue <= nMaxMoneyOut); }
-    bool IsTimeProtocolV2(const int nHeight) const { return NetworkUpgradeActive(nHeight, UPGRADE_V4_0); }
+    bool IsMessSigV2(const int nHeight) const { return nHeight >= height_start_MessSignaturesV2; }
+    bool IsPastRHFBlock(const int nHeight) const {return nHeight >= height_RHF; }
+    bool IsTimeProtocolV2(const int nHeight) const { return nHeight >= height_RHF; }
+    bool IsStakeModifierV2(const int nHeight) const { return nHeight >= height_start_StakeModifierV2; }
 
     int FutureBlockTimeDrift(const int nHeight) const
     {

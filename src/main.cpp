@@ -1500,58 +1500,52 @@ double ConvertBitsToDouble(unsigned int nBits)
 
 int64_t GetBlockValue(int nHeight)
 {
+    int64_t nSubsidy = 0;
+
     if (Params().NetworkID() == CBaseChainParams::TESTNET) {
-        if (nHeight < 200 && nHeight > 0)
+        if (nHeight < 50 && nHeight > 0)
             return 250000 * COIN;
     }
 
-    if (Params().IsRegTestNet()) {
-        if (nHeight == 0)
-            return 250 * COIN;
-
-    }
-
-    const Consensus::Params& consensus = Params().GetConsensus();
-    const bool isPoSActive = consensus.NetworkUpgradeActive(nHeight, Consensus::UPGRADE_POS);
-    int64_t nSubsidy = 0;
-    if (nHeight == 0) {
-        nSubsidy = 60001 * COIN;
-    } else if (nHeight < 86400 && nHeight > 0) {
-        nSubsidy = 250 * COIN;
-    } else if (nHeight < (Params().NetworkID() == CBaseChainParams::TESTNET ? 145000 : 151200) && nHeight >= 86400) {
-        nSubsidy = 225 * COIN;
-    } else if (nHeight >= 151200 && !isPoSActive) {
-        nSubsidy = 45 * COIN;
-    } else if (isPoSActive && nHeight <= 302399) {
-        nSubsidy = 45 * COIN;
-    } else if (nHeight <= 345599 && nHeight >= 302400) {
-        nSubsidy = 40.5 * COIN;
-    } else if (nHeight <= 388799 && nHeight >= 345600) {
-        nSubsidy = 36 * COIN;
-    } else if (nHeight <= 431999 && nHeight >= 388800) {
-        nSubsidy = 31.5 * COIN;
-    } else if (nHeight <= 475199 && nHeight >= 432000) {
-        nSubsidy = 27 * COIN;
-    } else if (nHeight <= 518399 && nHeight >= 475200) {
-        nSubsidy = 22.5 * COIN;
-    } else if (nHeight <= 561599 && nHeight >= 518400) {
-        nSubsidy = 18 * COIN;
-    } else if (nHeight <= 604799 && nHeight >= 561600) {
-        nSubsidy = 13.5 * COIN;
-    } else if (nHeight <= 647999 && nHeight >= 604800) {
-        nSubsidy = 9 * COIN;
-    } else if (!consensus.NetworkUpgradeActive(nHeight, Consensus::UPGRADE_ZC_V2)) {
-        nSubsidy = 4.5 * COIN;
+    if (nHeight == 1) {
+        nSubsidy = 380000000 * COIN; //SWAP
+    } else if (nHeight > 1 && nHeight < Params().GetConsensus().height_last_PoW) {
+        nSubsidy = 1 * COIN;
     } else {
-        nSubsidy = 5 * COIN;
+         nSubsidy = 305 * COIN;
     }
+
     return nSubsidy;
 }
 
-int64_t GetMasternodePayment()
+int64_t GetMasternodePayment(int nHeight, int64_t blockValue, int nMasternodeCount)
 {
-    return 3 * COIN;
+    int64_t ret = 0;
+
+    if (Params().NetworkID() == CBaseChainParams::TESTNET) {
+        if (nHeight < Params().GetConsensus().height_last_PoW)
+            return 0;
+    }
+
+    if (nHeight < Params().GetConsensus().height_last_PoW) {
+        ret = 0;
+    } else {
+        ret = blockValue * 0.60; //60%
+    }
+
+    return ret;
 }
+
+int64_t GetDevelopersPayment(int nHeight) {
+   if (nHeight <  Params().GetConsensus().height_last_PoW) {
+        return COIN * 0;
+    //} else if (nHeight < Params().GetConsensus().nSubsidyHalvingInterval && nHeight >= Params().GetConsensus().height_last_PoW) {
+    //    return COIN * 0.5;
+    } else {
+        return COIN * 61;
+    }
+}
+
 
 bool IsInitialBlockDownload()
 {
@@ -2515,20 +2509,6 @@ bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockIndex* pin
     nTimeCallbacks += nTime4 - nTime3;
     LogPrint(BCLog::BENCH, "    - Callbacks: %.2fms [%.2fs]\n", 0.001 * (nTime4 - nTime3), nTimeCallbacks * 0.000001);
 
-    //Continue tracking possible movement of fraudulent funds until they are completely frozen
-    if (pindex->nHeight >= consensus.height_start_ZC_InvalidSerials &&
-            pindex->nHeight <= consensus.height_ZC_RecalcAccumulators + 1)
-        AddInvalidSpendsToMap(block);
-
-    if (consensus.NetworkUpgradeActive(pindex->nHeight, Consensus::UPGRADE_ZC_V2) &&
-            pindex->nHeight < consensus.height_last_ZC_AccumCheckpoint) {
-        // Legacy Zerocoin DB: If Accumulators Checkpoint is changed, database the checksums
-        DataBaseAccChecksum(pindex, true);
-    } else if (pindex->nHeight == consensus.height_last_ZC_AccumCheckpoint) {
-        // After last Checkpoint block, wipe the checksum database
-        zerocoinDB->WipeAccChecksums();
-    }
-
     return true;
 }
 
@@ -3364,17 +3344,6 @@ bool CheckBlockHeader(const CBlockHeader& block, CValidationState& state, bool f
     if (fCheckPOW && !CheckProofOfWork(block.GetHash(), block.nBits))
         return state.DoS(50, false, REJECT_INVALID, "high-hash", false, "proof of work failed");
 
-    if (Params().IsRegTestNet()) return true;
-
-    // Version 4 header must be used after consensus.ZC_TimeStart. And never before.
-    if (block.GetBlockTime() > Params().GetConsensus().ZC_TimeStart) {
-        if(block.nVersion < 4)
-            return state.DoS(50,false, REJECT_INVALID, "block-version", "must be above 4 after ZC_TimeStart");
-    } else {
-        if (block.nVersion >= 4)
-            return state.DoS(50,false, REJECT_INVALID, "block-version", "must be below 4 before ZC_TimeStart");
-    }
-
     return true;
 }
 
@@ -3386,7 +3355,12 @@ bool CheckColdStakeFreeOutput(const CTransaction& tx, const int nHeight)
     const unsigned int outs = tx.vout.size();
     const CTxOut& lastOut = tx.vout[outs-1];
     if (outs >=3 && lastOut.scriptPubKey != tx.vout[outs-2].scriptPubKey) {
-        if (lastOut.nValue == GetMasternodePayment())
+        // last output can either be a mn reward or a budget payment
+        if (lastOut.nValue == GetMasternodePayment(nHeight, GetBlockValue(nHeight), 0))
+            return true;
+
+        // last output can either be a devfund reward
+        if (lastOut.nValue == GetDevelopersPayment(nHeight))
             return true;
 
         // This could be a budget block.
@@ -3622,15 +3596,8 @@ bool CheckWork(const CBlock block, CBlockIndex* const pindexPrev)
     }
 
     if (block.nBits != nBitsRequired) {
-        // Pivx Specific reference to the block with the wrong threshold was used.
-        const Consensus::Params& consensus = Params().GetConsensus();
-        if ((block.nTime == (uint32_t) consensus.nPivxBadBlockTime) &&
-                (block.nBits == (uint32_t) consensus.nPivxBadBlockBits)) {
-            // accept PIVX block minted with incorrect proof of work threshold
-            return true;
-        }
-
-        return error("%s : incorrect proof of work at %d", __func__, pindexPrev->nHeight + 1);
+        if (pindexPrev->nHeight + 1 != Params().GetConsensus().height_last_PoW + 1)
+            return error("%s : incorrect proof of work at %d", __func__, pindexPrev->nHeight + 1);
     }
 
     return true;
@@ -3693,17 +3660,6 @@ bool ContextualCheckBlockHeader(const CBlockHeader& block, CValidationState& sta
     if (pcheckpoint && nHeight < pcheckpoint->nHeight)
         return state.DoS(0, error("%s : forked chain older than last checkpoint (height %d)", __func__, nHeight));
 
-    // Reject outdated version blocks
-    if((block.nVersion < 3 && nHeight >= 1) ||
-        (block.nVersion < 4 && consensus.NetworkUpgradeActive(nHeight, Consensus::UPGRADE_ZC)) ||
-        (block.nVersion < 5 && consensus.NetworkUpgradeActive(nHeight, Consensus::UPGRADE_BIP65)) ||
-        (block.nVersion < 6 && consensus.NetworkUpgradeActive(nHeight, Consensus::UPGRADE_V3_4)) ||
-        (block.nVersion < 7 && consensus.NetworkUpgradeActive(nHeight, Consensus::UPGRADE_V4_0)))
-    {
-        std::string stringErr = strprintf("rejected block version %d at height %d", block.nVersion, nHeight);
-        return state.Invalid(false, REJECT_OBSOLETE, "bad-version", stringErr);
-    }
-
     return true;
 }
 
@@ -3746,10 +3702,14 @@ bool ContextualCheckBlock(const CBlock& block, CValidationState& state, CBlockIn
     // Enforce block.nVersion=2 rule that the coinbase starts with serialized block height
     if (pindexPrev) { // pindexPrev is only null on the first block which is a version 1 block.
         CScript expect = CScript() << nHeight;
-        if (block.vtx[0].vin[0].scriptSig.size() < expect.size() ||
-            !std::equal(expect.begin(), expect.end(), block.vtx[0].vin[0].scriptSig.begin())) {
-            return state.DoS(100, false, REJECT_INVALID, "bad-cb-height", false, "block height mismatch in coinbase");
-        }
+        bool isAfterRHF = Params().GetConsensus().IsPastRHFBlock(nHeight);
+        if(isAfterRHF)
+            if (block.vtx[0].vin[0].scriptSig.size() < expect.size() ||
+                !std::equal(expect.begin(), expect.end(), block.vtx[0].vin[0].scriptSig.begin()))
+            {
+                return state.DoS(100, error("%s : block height mismatch in coinbase", __func__), REJECT_INVALID,
+                             "bad-cb-height");
+            }
     }
 
     return true;
@@ -5240,16 +5200,6 @@ bool static ProcessMessage(CNode* pfrom, std::string strCommand, CDataStream& vR
         if (!pfrom->fInbound) {
             connman.SetServices(pfrom->addr, nServices);
         }
-        if (pfrom->nServicesExpected & ~nServices) {
-            LogPrint(BCLog::NET, "peer=%d does not offer the expected services (%08x offered, %08x expected); disconnecting\n", pfrom->id, nServices, pfrom->nServicesExpected);
-            connman.PushMessage(pfrom, CNetMsgMaker(INIT_PROTO_VERSION).Make(NetMsgType::REJECT, strCommand, REJECT_NONSTANDARD,
-                               strprintf("Expected to offer services %08x", pfrom->nServicesExpected)));
-            pfrom->fDisconnect = true;
-            return false;
-        }
-
-        if (pfrom->DisconnectOldProtocol(nVersion, ActiveProtocol(), strCommand))
-            return false;
 
         if (nVersion == 10300)
             nVersion = 300;
@@ -6044,15 +5994,7 @@ bool static ProcessMessage(CNode* pfrom, std::string strCommand, CDataStream& vR
 //       it was the one which was commented out
 int ActiveProtocol()
 {
-    // SPORK_14 is used for 70919 (v4.1.1)
-    if (sporkManager.IsSporkActive(SPORK_14_NEW_PROTOCOL_ENFORCEMENT))
-            return MIN_PEER_PROTO_VERSION_AFTER_ENFORCEMENT;
-
-    // SPORK_15 was used for 70918 (v4.0, v4.1.0), commented out now.
-    //if (sporkManager.IsSporkActive(SPORK_15_NEW_PROTOCOL_ENFORCEMENT_2))
-    //        return MIN_PEER_PROTO_VERSION_AFTER_ENFORCEMENT;
-
-    return MIN_PEER_PROTO_VERSION_BEFORE_ENFORCEMENT;
+    return MIN_PEER_PROTO_VERSION_AFTER_ENFORCEMENT;
 }
 
 bool ProcessMessages(CNode* pfrom, CConnman& connman, std::atomic<bool>& interruptMsgProc)
@@ -6158,8 +6100,8 @@ bool ProcessMessages(CNode* pfrom, CConnman& connman, std::atomic<bool>& interru
 bool SendMessages(CNode* pto, CConnman& connman, std::atomic<bool>& interruptMsgProc)
 {
     {
-        // Don't send anything until the version handshake is complete
-        if (!pto->fSuccessfullyConnected || pto->fDisconnect)
+        // Don't send anything until we get their version message
+        if (pto->nVersion == 0)
             return true;
 
         // If we get here, the outgoing message serialization version is set and can't change.

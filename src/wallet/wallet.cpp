@@ -2765,7 +2765,7 @@ bool CWallet::CreateCoinStake(
             return error("%s : exceeded coinstake size limit", __func__);
 
         // Masternode payment
-        FillBlockPayee(txNew, pindexPrev, true);
+        FillBlockPayee(txNew, 0, true);
 
         const uint256& hashTxOut = txNew.GetHash();
         CTxIn in;

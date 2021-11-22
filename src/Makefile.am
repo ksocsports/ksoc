@@ -201,6 +201,7 @@ BITCOIN_CORE_H = \
   main.h \
   memusage.h \
   masternode.h \
+  masternode-devbudget.h \
   masternode-payments.h \
   masternode-budget.h \
   masternode-sync.h \
@@ -362,6 +363,7 @@ libbitcoin_wallet_a_SOURCES = \
   swifttx.cpp \
   masternode.cpp \
   masternode-budget.cpp \
+  masternode-devbudget.cpp \
   masternode-payments.cpp \
   masternode-sync.cpp \
   masternodeconfig.cpp \
@@ -404,13 +406,28 @@ crypto_libbitcoin_crypto_a_SOURCES = \
   crypto/hmac_sha512.cpp \
   crypto/scrypt.cpp \
   crypto/ripemd160.cpp \
+  crypto/sph_md_helper.c \
+  crypto/sph_sha2big.c \
   crypto/aes_helper.c \
   crypto/blake.c \
   crypto/bmw.c \
   crypto/groestl.c \
   crypto/jh.c \
+  crypto/luffa.c \
   crypto/keccak.c \
   crypto/skein.c \
+  crypto/cubehash.c \
+  crypto/shavite.c \
+  crypto/shabal.c \
+  crypto/simd.c \
+  crypto/echo.c \
+  crypto/whirlpool.c \
+  crypto/haval.c \
+  crypto/haval_helper.c \
+  crypto/hamsi.c \
+  crypto/hamsi_helper.c \
+  crypto/fugue.c \
+  crypto/sha2.c \
   crypto/common.h \
   crypto/sha256.h \
   crypto/sha512.h \
@@ -425,7 +442,18 @@ crypto_libbitcoin_crypto_a_SOURCES = \
   crypto/sph_groestl.h \
   crypto/sph_jh.h \
   crypto/sph_keccak.h \
+  crypto/sph_luffa.h \
+  crypto/sph_shavite.h \
+  crypto/sph_hamsi.h \
+  crypto/sph_cubehash.h \
   crypto/sph_skein.h \
+  crypto/sph_simd.h \
+  crypto/sph_fugue.h \
+  crypto/sph_echo.h \
+  crypto/sph_shabal.h \
+  crypto/sph_whirlpool.h \
+  crypto/sph_sha2.h \
+  crypto/sph_haval.h \
   crypto/sph_types.h
 
 # specifically for xevan hash
