@@ -142,5 +142,4 @@ moc_*
 *.tmp
 ui_*
 build*
-ksocd.*
 ksocd-new-gui.*
