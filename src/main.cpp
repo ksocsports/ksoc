@@ -5200,7 +5200,8 @@ bool static ProcessMessage(CNode* pfrom, std::string strCommand, CDataStream& vR
         if (!pfrom->fInbound) {
             connman.SetServices(pfrom->addr, nServices);
         }
-
+	if (pfrom->DisconnectOldProtocol(nVersion, ActiveProtocol(), strCommand))
+            return false;
         if (nVersion == 10300)
             nVersion = 300;
         if (!vRecv.empty())
