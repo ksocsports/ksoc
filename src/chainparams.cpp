@@ -83,6 +83,12 @@ static Checkpoints::MapCheckpoints mapCheckpoints =
     (46001, uint256S("b7ffd9a47aabfae0253bfc7830816c28276dd192798921766882f316a76ace70")) //height of 2st split
     (46204, uint256S("b04230c4675d0fb266e97dcb6bd3b4007366277f6a0408cc76e201d4eb24cd9c"))
     (46720, uint256S("c099044687f783e8ea6df6df9cb642e8bc6de9ffeb5814cbac0905b9672277ae"))
+    (50000, uint256S("3b36a0eb2b37e93dcbff158a9ebda75d018c02e0aa5906efaf8f40e6b6eb1b5f"))
+    (55000, uint256S("ebe61ad4f450202331ac0afc5342a7c8aa5fe0ad32c1e752b15d447e2a3d371a"))
+    (65000, uint256S("bd447d3722548b2a9092dd68a4735114c7bc352f020d74c903ddb8b488cfc4c6"))
+    (70000, uint256S("0954ab42572595e5b04853d6d5e0f029c22d439f643c66427d4ad6dc0e27cacb"))
+    (85000, uint256S("53353363d9ee7f1f1f3d35feb1f81175044fe70a10e9f04bd658ce066a5e4f6e"))
+	 (91000, uint256S("afff8365e4a3c3f39c28c0b4b7bff09beef158982b76dccd7307de4c885ab2e1"))    
     ;
 
 static const Checkpoints::CCheckpointData data = {
