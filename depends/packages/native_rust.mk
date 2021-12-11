@@ -40,7 +40,7 @@ endef
 
 ifneq ($(canonical_host),$(build))
 $(package)_rust_target=$(call rust_target,$(package),$(canonical_host),$(host_os))
-$(package)_exact_file_name=rust-std-$($(package)_version)-$($(package)_rust_target).tar.gz
+$(package)_exact_file_name=rust-std-$($(package)_version)-$($(package)_rust_target).tar.xz
 $(package)_exact_sha256_hash=$($(package)_rust_std_sha256_hash_$($(package)_rust_target))
 $(package)_build_subdir=buildos
 $(package)_extra_sources=$($(package)_file_name_$(build_arch)_$(build_os))
