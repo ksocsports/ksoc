@@ -63,7 +63,7 @@ endef
 
 define $(package)_stage_cmds
   bash ./install.sh --destdir=$($(package)_staging_dir) --prefix=$(build_prefix) --disable-ldconfig && \
-  ../$(canonical_host)/install.sh --without-rust-docs --destdir=$($(package)_staging_dir) --prefix=$(build_prefix) --disable-ldconfig
+  ../$(canonical_host)/install.sh --without=rust-docs --destdir=$($(package)_staging_dir) --prefix=$(build_prefix) --disable-ldconfig
 endef
 else
 
@@ -80,6 +80,6 @@ define $(package)_extract_cmds
 endef
 
 define $(package)_stage_cmds
-  bash ./$(canonical_host)/install.sh --without-rust-docs --destdir=$($(package)_staging_dir) --prefix=$(build_prefix) --disable-ldconfig
+  bash ./$(canonical_host)/install.sh --without=rust-docs --destdir=$($(package)_staging_dir) --prefix=$(build_prefix) --disable-ldconfig
 endef
 endif
