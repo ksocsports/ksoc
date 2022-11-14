@@ -134,7 +134,7 @@ void TopBar::onThemeClicked()
     // Store theme
     bool lightTheme = !isLightTheme();
 
-    setTheme(lightTheme);
+    setTheme(!lightTheme);
 
     if (lightTheme) {
         ui->pushButtonTheme->setButtonClassStyle("cssClass", "btn-check-theme-light",  true);
@@ -145,7 +145,7 @@ void TopBar::onThemeClicked()
     }
     updateStyle(ui->pushButtonTheme);
 
-    Q_EMIT themeChanged(lightTheme);
+    //Q_EMIT themeChanged(lightTheme);
 }
 
 void TopBar::onBtnLockClicked()
