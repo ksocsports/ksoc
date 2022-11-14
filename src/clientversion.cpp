@@ -13,7 +13,7 @@
  * for both ksocd and ksoc-qt, to make it harder for attackers to
  * target servers or GUI users specifically.
  */
-const std::string CLIENT_NAME("Ksoc Core");
+const std::string CLIENT_NAME("KSOC Core");
 
 /**
  * The Codename of the current release, often appended to CLIENT_NAME.
