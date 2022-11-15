@@ -153,8 +153,8 @@ public:
         consensus.nTargetSpacing = 2 * 60;
         consensus.nTimeSlotLength = 15;
         consensus.strObfuscationPoolDummyAddress = "KNTPdJ1yFDpqmY4dM5Gs8sg9kp5QMAwXBu";
-	consensus.strDevFeeAddress = "KQYptvmcUGoxcdtZpwtB8RrSCe7x2sqtgs";
-	consensus.strDevFeeAddress1 = "KF3aHMg1FDZ8Embg4vNzJ9uMYd99fh3vhc";
+        consensus.strDevFeeAddress = "KQYptvmcUGoxcdtZpwtB8RrSCe7x2sqtgs";
+        consensus.strDevFeeAddress1 = "KF3aHMg1FDZ8Embg4vNzJ9uMYd99fh3vhc";
 
         // spork keys
         consensus.strSporkPubKey = "038e2aaa12d0bd6824c90a7fa4e7b6c379b5c9bd6517bea009bddecccac9014b6c";
@@ -180,7 +180,7 @@ public:
         consensus.ZC_MinMintConfirmations = 20;
         consensus.ZC_MinMintFee = 1 * CENT;
         consensus.ZC_MinStakeDepth = 200;
-	consensus.ZC_TimeStart = 1547096400;        // October 17, 2017 4:30:00 AM
+        consensus.ZC_TimeStart = 1547096400;        // October 17, 2017 4:30:00 AM
         consensus.ZC_WrappedSerialsSupply = 4131563 * COIN;   // zerocoin supply at height_last_ZC_WrappedSerials
 
         // Network upgrades
@@ -223,7 +223,7 @@ public:
 
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1, 45);
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1, 107);
-	base58Prefixes[STAKING_ADDRESS] = std::vector<unsigned char>(1, 107);     // starting with 'k'
+        base58Prefixes[STAKING_ADDRESS] = std::vector<unsigned char>(1, 107);     // starting with 'k'
         base58Prefixes[SECRET_KEY] = std::vector<unsigned char>(1, 212);
         base58Prefixes[EXT_PUBLIC_KEY] = boost::assign::list_of(0x02)(0x2D)(0x25)(0x33).convert_to_container<std::vector<unsigned char> >();
         base58Prefixes[EXT_SECRET_KEY] = boost::assign::list_of(0x02)(0x21)(0x31)(0x2B).convert_to_container<std::vector<unsigned char> >();
