@@ -1784,14 +1784,14 @@ HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH*/
     border-bottom: 5px solid #6f6565;
 }
 
-*[cssClass="text-stake-zpiv"] {
+*[cssClass="text-stake-mn"] {
     color:#ff8888;
     font-size:16px;
     padding:10px;
     border-bottom: 5px solid #ff8888;
 }
 
-*[cssClass="text-stake-zpiv-disable"] {
+*[cssClass="text-stake-mn-disable"] {
     color:#4a3e3e;
     font-size:16px;
     padding:10px;
@@ -1803,7 +1803,7 @@ HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH*/
     font-size:16px;
 }
 
-*[cssClass="text-chart-zpiv"] {
+*[cssClass="text-chart-mn"] {
     color:#ff8888;
     font-size:16px;
     padding-left:4px;
@@ -1815,7 +1815,7 @@ HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH*/
     padding-left:4px;
 }
 
-*[cssClass="square-chart-zpiv"] {
+*[cssClass="square-chart-mn"] {
     background-color:#ff8888;
     border:none;
 }
