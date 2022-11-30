@@ -189,7 +189,7 @@ QSettings* getSettings()
 
 bool isLightTheme()
 {
-    return getSettings()->value("lightTheme", false).toBool();
+    return getSettings()->value("lightTheme", true).toBool();
 }
 
 void setTheme(bool isLight)

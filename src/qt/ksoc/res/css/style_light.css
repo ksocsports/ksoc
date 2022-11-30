@@ -425,7 +425,7 @@ HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH*/
 
 *[cssClass="container-qr"] {
     border-radius: 2px;
-    background-color: #bb241a3c;
+    background-color: transparent;
 }
 
 QPushButton[cssClass="btn-qr"] {
@@ -1784,14 +1784,14 @@ HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH*/
     border-bottom: 5px solid #6f6565;
 }
 
-*[cssClass="text-stake-zpiv"] {
+*[cssClass="text-stake-mn"] {
     color:#ff8888;
     font-size:16px;
     padding:10px;
     border-bottom: 5px solid #ff8888;
 }
 
-*[cssClass="text-stake-zpiv-disable"] {
+*[cssClass="text-stake-mn-disable"] {
     color:#4a3e3e;
     font-size:16px;
     padding:10px;
@@ -1803,7 +1803,7 @@ HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH*/
     font-size:16px;
 }
 
-*[cssClass="text-chart-zpiv"] {
+*[cssClass="text-chart-mn"] {
     color:#ff8888;
     font-size:16px;
     padding-left:4px;
@@ -1815,7 +1815,7 @@ HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH*/
     padding-left:4px;
 }
 
-*[cssClass="square-chart-zpiv"] {
+*[cssClass="square-chart-mn"] {
     background-color:#ff8888;
     border:none;
 }
@@ -2401,28 +2401,6 @@ HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH*/
 }
 
 
-*[cssClass="coin-icon-piv"] {
-    qproperty-icon: url("://ic-coin-piv") off,
-    url("://ic-coin-piv") on ;
-    qproperty-iconSize: 24px 24px;
-    background-color: #FFFFFF;
-    border:  2px solid #0f0b16;
-    border-radius: 12px;
-}
-
-*[cssClass="coin-icon-zpiv"] {
-    qproperty-icon: url("://ic-coin-zpiv") off,
-    url("://ic-coin-zpiv") on ;
-    qproperty-iconSize: 24px 24px;
-    background-position:center;
-    background-repeat:no-repeat;
-    background-color: #FFFFFF;
-    border:  2px solid #0f0b16;
-    border-radius: 12px;
-}
-
-
-
 /*HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH
 HH      Dialog
 HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH*/
@@ -2585,7 +2563,7 @@ QPushButton[cssClass="btn-settings-check"]:checked {
 }
 
 QPushButton[cssClass="btn-settings-options"] {
-    background-color: rgba(92, 75, 125, 0.2);
+    background-color: #992323;
     border:none;
     font-size:20px;
     color: rgba(255, 255, 255, 0.7);
@@ -2603,7 +2581,7 @@ QPushButton[cssClass="btn-settings-options"]:checked {
 }
 
 QPushButton[cssClass="btn-settings-options"]:hover {
-    background-color: rgba(135, 123, 159, 0.7);
+    background-color: #992323;
     border:none;
     font-size:20px;
     color: #FFFFFF;
@@ -2738,7 +2716,7 @@ QPushButton[cssClass="btn-faq-options"] {
 }
 
 QPushButton[cssClass="btn-faq-options"]:checked {
-    background-color: rgba(176 ,136 ,255, 0.2);
+    background-color: #992323;
     border:none;
     font-size:18px;
     color: #FFFFFF;
