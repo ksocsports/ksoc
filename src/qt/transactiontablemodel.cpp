@@ -155,7 +155,6 @@ public:
             
             // Now that all records have been cached, sort them by tx hash
             {
-                LOCK(cs_cachedWallet);
                 std::sort(cachedWallet.begin(), cachedWallet.end(), TxLessThan());
             }
 

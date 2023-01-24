@@ -23,7 +23,6 @@
 #define MASTERNODE_REMOVAL_SECONDS (130 * 60)
 #define MASTERNODE_CHECK_SECONDS 5
 
-
 class CMasternode;
 class CMasternodeBroadcast;
 class CMasternodePing;
