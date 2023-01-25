@@ -33,28 +33,25 @@ TopBar::TopBar(KSOCGUI* _mainWindow, QWidget *parent) :
 {
     ui->setupUi(this);
 
-    // Set parent stylesheet
+     // Set parent stylesheet
     this->setStyleSheet(_mainWindow->styleSheet());
     /* Containers */
     ui->containerTop->setContentsMargins(10, 4, 10, 10);
-#ifdef Q_OS_MAC
-    ui->containerTop->load("://bg-dashboard-banner");
-    setCssProperty(ui->containerTop,"container-topbar-no-image");
-#else
     ui->containerTop->setProperty("cssClass", "container-top");
-#endif
 
-    std::initializer_list<QWidget*> lblTitles = {ui->labelTitle1, ui->labelTitle3, ui->labelTitle4};
-    setCssProperty(lblTitles, "text-title-topbar");
-    QFont font;
-    font.setWeight(QFont::Light);
-    Q_FOREACH (QWidget* w, lblTitles) { w->setFont(font); }
+    setCssProperty({ui->labelTitle1, ui->labelTitle3, ui->labelTitle4, ui->labelTitle5,
+                       ui->labelTitle6, ui->labelMasternodesTitle, ui->labelTitle8},
+        "text-title-topbar");
 
     // Amount information top
     ui->widgetTopAmount->setVisible(false);
+    ui->widgetAmount->setVisible(true);
     setCssProperty({ui->labelAmountTopPiv}, "amount-small-topbar");
     setCssProperty({ui->labelAmountPiv}, "amount-topbar");
-    setCssProperty({ui->labelPendingPiv, ui->labelImmaturePiv}, "amount-small-topbar");
+    setCssProperty({ui->labelPendingPiv, ui->labelImmaturePiv, ui->labelAvailablePiv,
+                       ui->labelLockedPiv},"amount-small-topbar");
+
+
 
     // Progress Sync
     progressBar = new QProgressBar(ui->layoutSync);
@@ -579,7 +576,7 @@ void TopBar::updateTorIcon()
         }
     }
 }
-void TopBar::refreshMasternodeStatus()
+/*void TopBar::refreshMasternodeStatus()
 {
     // Masternodes
     int nMNCount = 0;
@@ -610,10 +607,10 @@ void TopBar::refreshMasternodeStatus()
 
     ui->labelMasternodeCount->setText(tr("%1/%2").arg(isSynced ? std::to_string(nMNActive).c_str() : "--").arg(nMNCount));
     ui->labelMasternodesTitle->setText(tr("Masternodes%1").arg(isSynced ? "" : " (Syncing)"));
-}
+}*/
 void TopBar::refreshStatus()
 {
-        refreshMasternodeStatus();
+        //refreshMasternodeStatus();
 
     // Check lock status
     if (!this->walletModel)
@@ -641,7 +638,7 @@ void TopBar::refreshStatus()
     }
     updateStyle(ui->pushButtonLock);
     // Collateral
-    ui->labelCollateralPiv->setText(GUIUtil::formatBalance(CMasternode::GetcollAmt(chainActive.Tip()->nHeight), nDisplayUnit));
+    //ui->labelCollateralPiv->setText(GUIUtil::formatBalance(Consensus.nMNCollateralAmt(chainActive.Tip()->nHeight), nDisplayUnit));
 }
 
 void TopBar::updateDisplayUnit()
@@ -675,10 +672,10 @@ void TopBar::updateBalances(const interfaces::WalletBalances& newBalance)
     ui->labelImmaturePiv->setText(GUIUtil::formatBalance(newBalance.immature_balance, nDisplayUnit));
     ui->labelLockedPiv->setText(GUIUtil::formatBalance(nLockedBalance, nDisplayUnit));
 
-    refreshMasternodeStatus();
+    //refreshMasternodeStatus();
 
     // Collateral
-    ui->labelCollateralPiv->setText(GUIUtil::formatBalance(CMasternode::GetcollAmt(chainActive.Tip()->nHeight), nDisplayUnit));
+    //ui->labelCollateralPiv->setText(GUIUtil::formatBalance(Consensus.nMNCollateralAmt(chainActive.Tip()->nHeight), nDisplayUnit));
 }
 
 void TopBar::resizeEvent(QResizeEvent *event)
