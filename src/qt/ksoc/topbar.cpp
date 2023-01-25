@@ -49,8 +49,9 @@ TopBar::TopBar(KSOCGUI* _mainWindow, QWidget *parent) :
     setCssProperty({ui->labelAmountTopPiv}, "amount-small-topbar");
     setCssProperty({ui->labelAmountPiv}, "amount-topbar");
     setCssProperty({ui->labelPendingPiv, ui->labelImmaturePiv, ui->labelAvailablePiv,
-                       ui->labelLockedPiv},"amount-small-topbar");
-
+    setCssProperty({ui->labelPendingPiv, ui->labelImmaturePiv, ui->labelAvailablePiv,
+                       ui->labelLockedPiv, ui->labelMasternodeCount, ui->labelCollateralPiv},
+        "amount-small-topbar");
 
 
     // Progress Sync
