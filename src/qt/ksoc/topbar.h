@@ -66,7 +66,7 @@ private Q_SLOTS:
     void lockDropdownMouseLeave();
     void lockDropdownClicked(const StateClicked&);
     void refreshStatus();
-    //void refreshMasternodeStatus();
+    void refreshMasternodeStatus();
     void openLockUnlock();
     void onColdStakingClicked();
     void refreshProgressBarSize();
