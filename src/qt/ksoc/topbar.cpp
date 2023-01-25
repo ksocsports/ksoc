@@ -9,6 +9,7 @@
 #include "qt/ksoc/receivedialog.h"
 #include "qt/ksoc/loadingdialog.h"
 #include "askpassphrasedialog.h"
+#include "masternodeman.h"
 
 #include "bitcoinunits.h"
 #include "clientmodel.h"
@@ -49,9 +50,7 @@ TopBar::TopBar(KSOCGUI* _mainWindow, QWidget *parent) :
     setCssProperty({ui->labelAmountTopPiv}, "amount-small-topbar");
     setCssProperty({ui->labelAmountPiv}, "amount-topbar");
     setCssProperty({ui->labelPendingPiv, ui->labelImmaturePiv, ui->labelAvailablePiv,
-    setCssProperty({ui->labelPendingPiv, ui->labelImmaturePiv, ui->labelAvailablePiv,
-                       ui->labelLockedPiv, ui->labelMasternodeCount, ui->labelCollateralPiv},
-        "amount-small-topbar");
+                       ui->labelMasternodeCount, ui->labelCollateralPiv, ui->labelLockedPiv},"amount-small-topbar");
 
 
     // Progress Sync
