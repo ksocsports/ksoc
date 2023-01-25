@@ -85,18 +85,6 @@ TopBar::TopBar(KSOCGUI* _mainWindow, QWidget *parent) :
     ui->pushButtonColdStaking->setButtonClassStyle("cssClass", "btn-check-cold-staking-inactive");
     ui->pushButtonColdStaking->setButtonText(tr("Cold Staking Disabled"));
 
-    ui->pushButtonConf->setButtonClassStyle("cssClass", "btn-check-conf");
-    ui->pushButtonConf->setButtonText("ksoc.conf");
-    ui->pushButtonConf->setChecked(false);
-
-    ui->pushButtonMasternodes->setButtonClassStyle("cssClass", "btn-check-masternodes");
-    ui->pushButtonMasternodes->setButtonText("masternode.conf");
-    ui->pushButtonMasternodes->setChecked(false);
-
-    ui->pushButtonConsole->setButtonClassStyle("cssClass", "btn-check-console");
-    ui->pushButtonConsole->setButtonText("Debug Console");
-    ui->pushButtonConsole->setChecked(false);
-
     ui->pushButtonSync->setButtonClassStyle("cssClass", "btn-check-sync");
     ui->pushButtonSync->setButtonText(tr(" %54 Synchronizing.."));
 
