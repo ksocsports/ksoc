@@ -579,9 +579,42 @@ void TopBar::updateTorIcon()
         }
     }
 }
+void TopBar::refreshMasternodeStatus()
+{
+    // Masternodes
+    int nMNCount = 0;
+    int nMNActive = 0;
+    bool isSynced = masternodeSync.IsSynced();
 
+    for (auto mne : masternodeConfig.getEntries()) {
+        nMNCount++;
+
+        if (isSynced) {
+            int nIndex;
+            if (!mne.castOutputIndex(nIndex))
+                continue;
+
+            uint256 txHash(mne.getTxHash());
+            CTxIn txIn(txHash, uint32_t(nIndex));
+            auto pmn = mnodeman.Find(txIn);
+
+            if (!pmn) continue;
+
+            int activeState = pmn->activeState;
+
+            if (activeState == CMasternode::MASTERNODE_PRE_ENABLED || activeState == CMasternode::MASTERNODE_ENABLED) {
+                nMNActive++;
+            }
+        }
+    }
+
+    ui->labelMasternodeCount->setText(tr("%1/%2").arg(isSynced ? std::to_string(nMNActive).c_str() : "--").arg(nMNCount));
+    ui->labelMasternodesTitle->setText(tr("Masternodes%1").arg(isSynced ? "" : " (Syncing)"));
+}
 void TopBar::refreshStatus()
 {
+        refreshMasternodeStatus();
+
     // Check lock status
     if (!this->walletModel)
         return;
@@ -607,6 +640,8 @@ void TopBar::refreshStatus()
             break;
     }
     updateStyle(ui->pushButtonLock);
+    // Collateral
+    ui->labelCollateralPiv->setText(GUIUtil::formatBalance(CMasternode::GetcollAmt(chainActive.Tip()->nHeight), nDisplayUnit));
 }
 
 void TopBar::updateDisplayUnit()
@@ -629,15 +664,21 @@ void TopBar::updateBalances(const interfaces::WalletBalances& newBalance)
     ui->labelTitle1->setText(nLockedBalance > 0 ? tr("Available (Locked included)") : tr("Available"));
 
     // PIV Total
-    QString totalPiv = GUIUtil::formatBalance(newBalance.balance, nDisplayUnit);
+    CAmount nAvailableBalance = newBalance.balance - nLockedBalance;
 
     // PIV
     // Top
-    ui->labelAmountTopPiv->setText(totalPiv);
+    ui->labelAmountTopPiv->setText(GUIUtil::formatBalance(nAvailableBalance, nDisplayUnit));
     // Expanded
-    ui->labelAmountPiv->setText(totalPiv);
-    ui->labelPendingPiv->setText(GUIUtil::formatBalance(newBalance.unconfirmed_balance, nDisplayUnit));
+    ui->labelAmountPiv->setText(GUIUtil::formatBalance(newBalance.balance, nDisplayUnit));
+    ui->labelAvailablePiv->setText(GUIUtil::formatBalance(nAvailableBalance, nDisplayUnit));
     ui->labelImmaturePiv->setText(GUIUtil::formatBalance(newBalance.immature_balance, nDisplayUnit));
+    ui->labelLockedPiv->setText(GUIUtil::formatBalance(nLockedBalance, nDisplayUnit));
+
+    refreshMasternodeStatus();
+
+    // Collateral
+    ui->labelCollateralPiv->setText(GUIUtil::formatBalance(CMasternode::GetcollAmt(chainActive.Tip()->nHeight), nDisplayUnit));
 }
 
 void TopBar::resizeEvent(QResizeEvent *event)
