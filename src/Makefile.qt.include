@@ -292,6 +292,9 @@ RES_ICONS = \
   qt/ksoc/res/img/bg-dashboard-banner.png \
   qt/ksoc/res/img/bg-multi-number-dark.svg \
   qt/ksoc/res/img/ic-check-locked.svg \
+  qt/ksoc/res/img/ic-check-console.svg \
+  qt/ksoc/res/img/ic-check-mn-conf.svg \
+  qt/ksoc/res/img/ic-check-coin-conf.svg \
   qt/ksoc/res/img/ic-nav-address.svg \
   qt/ksoc/res/img/ic-update.svg \
   qt/ksoc/res/img/bg-multi-number.svg \

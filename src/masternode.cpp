@@ -316,6 +316,10 @@ bool CMasternode::IsInputAssociatedWithPubkey() const
     return false;
 }
 
+CAmount CMasternode::GetMasternodeCollateral(int nHeight) {
+    return Params().GetConsensus().nMNCollateralAmt;
+}
+
 CMasternodeBroadcast::CMasternodeBroadcast() :
         CMasternode()
 { }

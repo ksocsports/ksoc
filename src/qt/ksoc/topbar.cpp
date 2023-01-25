@@ -85,6 +85,18 @@ TopBar::TopBar(KSOCGUI* _mainWindow, QWidget *parent) :
     ui->pushButtonColdStaking->setButtonClassStyle("cssClass", "btn-check-cold-staking-inactive");
     ui->pushButtonColdStaking->setButtonText(tr("Cold Staking Disabled"));
 
+    ui->pushButtonConf->setButtonClassStyle("cssClass", "btn-check-conf");
+    ui->pushButtonConf->setButtonText("ksoc.conf");
+    ui->pushButtonConf->setChecked(false);
+
+    ui->pushButtonMasternodes->setButtonClassStyle("cssClass", "btn-check-masternodes");
+    ui->pushButtonMasternodes->setButtonText("masternode.conf");
+    ui->pushButtonMasternodes->setChecked(false);
+
+    ui->pushButtonConsole->setButtonClassStyle("cssClass", "btn-check-console");
+    ui->pushButtonConsole->setButtonText("Debug Console");
+    ui->pushButtonConsole->setChecked(false);
+
     ui->pushButtonSync->setButtonClassStyle("cssClass", "btn-check-sync");
     ui->pushButtonSync->setButtonText(tr(" %54 Synchronizing.."));
 
@@ -576,7 +588,7 @@ void TopBar::updateTorIcon()
         }
     }
 }
-/*void TopBar::refreshMasternodeStatus()
+void TopBar::refreshMasternodeStatus()
 {
     // Masternodes
     int nMNCount = 0;
@@ -607,10 +619,10 @@ void TopBar::updateTorIcon()
 
     ui->labelMasternodeCount->setText(tr("%1/%2").arg(isSynced ? std::to_string(nMNActive).c_str() : "--").arg(nMNCount));
     ui->labelMasternodesTitle->setText(tr("Masternodes%1").arg(isSynced ? "" : " (Syncing)"));
-}*/
+}
 void TopBar::refreshStatus()
 {
-        //refreshMasternodeStatus();
+        refreshMasternodeStatus();
 
     // Check lock status
     if (!this->walletModel)
@@ -638,7 +650,7 @@ void TopBar::refreshStatus()
     }
     updateStyle(ui->pushButtonLock);
     // Collateral
-    //ui->labelCollateralPiv->setText(GUIUtil::formatBalance(Consensus.nMNCollateralAmt(chainActive.Tip()->nHeight), nDisplayUnit));
+    ui->labelCollateralPiv->setText(GUIUtil::formatBalance(CMasternode::GetMasternodeCollateral(chainActive.Tip()->nHeight), nDisplayUnit));
 }
 
 void TopBar::updateDisplayUnit()
@@ -672,10 +684,10 @@ void TopBar::updateBalances(const interfaces::WalletBalances& newBalance)
     ui->labelImmaturePiv->setText(GUIUtil::formatBalance(newBalance.immature_balance, nDisplayUnit));
     ui->labelLockedPiv->setText(GUIUtil::formatBalance(nLockedBalance, nDisplayUnit));
 
-    //refreshMasternodeStatus();
+    refreshMasternodeStatus();
 
     // Collateral
-    //ui->labelCollateralPiv->setText(GUIUtil::formatBalance(Consensus.nMNCollateralAmt(chainActive.Tip()->nHeight), nDisplayUnit));
+    ui->labelCollateralPiv->setText(GUIUtil::formatBalance(CMasternode::GetMasternodeCollateral(chainActive.Tip()->nHeight), nDisplayUnit));
 }
 
 void TopBar::resizeEvent(QResizeEvent *event)

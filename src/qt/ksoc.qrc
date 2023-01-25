@@ -71,6 +71,9 @@
         <file alias="ic-check-liliac-on">ksoc/res/img/ic-check-liliac-on.svg</file>
         <file alias="ic-check-locked-off">ksoc/res/img/ic-check-locked-off.svg</file>
         <file alias="ic-check-locked">ksoc/res/img/ic-check-locked.svg</file>
+        <file alias="ic-check-console">ksoc/res/img/ic-check-console.svg</file>
+        <file alias="ic-check-mn-conf">ksoc/res/img/ic-check-mn-conf.svg</file>
+        <file alias="ic-check-coin-conf">ksoc/res/img/ic-check-coin-conf.svg</file>
         <file alias="ic-check-mint-off">ksoc/res/img/ic-check-mint-off.svg</file>
         <file alias="ic-check-mint">ksoc/res/img/ic-check-mint.svg</file>
         <file alias="ic-check-peers-off">ksoc/res/img/ic-check-peers-off.svg</file>
