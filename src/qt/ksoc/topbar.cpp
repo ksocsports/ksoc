@@ -49,7 +49,7 @@ TopBar::TopBar(KSOCGUI* _mainWindow, QWidget *parent) :
     setCssProperty({ui->labelAmountTopPiv}, "amount-small-topbar");
     setCssProperty({ui->labelAmountPiv}, "amount-topbar");
     setCssProperty({ui->labelPendingPiv, ui->labelImmaturePiv, ui->labelAvailablePiv,
-                       ui->labelLockedPiv},"amount-small-topbar");
+                       ui->labelMasternodeCount, ui->labelCollateralValue, ui->labelLockedPiv},"amount-small-topbar");
 
 
 
@@ -581,29 +581,11 @@ void TopBar::refreshMasternodeStatus()
     // Masternodes
     int nMNCount = 0;
     int nMNActive = 0;
-    bool isSynced = masternodeSync.IsSynced();
-
-    for (auto mne : masternodeConfig.getEntries()) {
-        nMNCount++;
-
-        if (isSynced) {
-            int nIndex;
-            if (!mne.castOutputIndex(nIndex))
-                continue;
-
-            uint256 txHash(mne.getTxHash());
-            CTxIn txIn(txHash, uint32_t(nIndex));
-            auto pmn = mnodeman.Find(txIn);
-
-            if (!pmn) continue;
-
-            int activeState = pmn->activeState;
-
-            if (activeState == CMasternode::MASTERNODE_PRE_ENABLED || activeState == CMasternode::MASTERNODE_ENABLED) {
-                nMNActive++;
-            }
-        }
-    }
+    
+    //Total MN Count
+    nMNCount = mnodeman.size();
+    //Enabled MN Count
+    nMNActive = mnodeman.CountEnabled();
 
     ui->labelMasternodeCount->setText(tr("%1/%2").arg(isSynced ? std::to_string(nMNActive).c_str() : "--").arg(nMNCount));
     ui->labelMasternodesTitle->setText(tr("Masternodes%1").arg(isSynced ? "" : " (Syncing)"));
