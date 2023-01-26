@@ -583,28 +583,13 @@ void TopBar::refreshMasternodeStatus()
     int nMNActive = 0;
     bool isSynced = masternodeSync.IsSynced();
 
-    for (auto mne : masternodeConfig.getEntries()) {
-        nMNCount++;
+    //Total MN Count
+    nMNCount = mnodeman.size();
+    
+    //Enabled MN Count
+    nMNActive = mnodeman.CountEnabled();
 
-        if (isSynced) {
-            int nIndex;
-            if (!mne.castOutputIndex(nIndex))
-                continue;
-
-            uint256 txHash(mne.getTxHash());
-            CTxIn txIn(txHash, uint32_t(nIndex));
-            auto pmn = mnodeman.Find(txIn);
-
-            if (!pmn) continue;
-
-            int activeState = pmn->activeState;
-
-            if (activeState == CMasternode::MASTERNODE_PRE_ENABLED || activeState == CMasternode::MASTERNODE_ENABLED) {
-                nMNActive++;
-            }
-        }
-    }
-
+    //message in the UI
     ui->labelMasternodeCount->setText(tr("%1/%2").arg(isSynced ? std::to_string(nMNActive).c_str() : "--").arg(nMNCount));
     ui->labelMasternodesTitle->setText(tr("Masternodes%1").arg(isSynced ? "" : " (Syncing)"));
 }
