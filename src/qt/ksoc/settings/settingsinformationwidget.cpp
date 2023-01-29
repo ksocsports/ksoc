@@ -159,7 +159,14 @@ void SettingsInformationWidget::openNetworkMonitor()
     }
     rpcConsole->showNetwork();
 }
-
+void SettingsInformationWidget::showPeers()
+{
+    if (!rpcConsole) {
+        rpcConsole = new RPCConsole(0);
+        rpcConsole->setClientModel(clientModel);
+    }
+    rpcConsole->showPeers();
+}
 void SettingsInformationWidget::showEvent(QShowEvent *event)
 {
     QWidget::showEvent(event);

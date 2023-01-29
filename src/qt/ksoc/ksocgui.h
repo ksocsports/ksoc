@@ -70,7 +70,7 @@ public Q_SLOTS:
     void goToSettings();
     void goToSettingsInfo();
     void openNetworkMonitor();
-
+    void showPeers();
     void connectActions();
 
     /** Get restart command-line parameters and request restart */
