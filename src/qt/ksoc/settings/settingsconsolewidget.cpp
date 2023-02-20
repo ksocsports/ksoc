@@ -445,6 +445,21 @@ void SettingsConsoleWidget::message(int category, const QString& message, bool h
     out += "</td></tr></table>";
     ui->messagesWidget->append(out);
 }
+static bool PotentiallyDangerousCommand(const QString& cmd)
+{
+    if (cmd.size() >= 12 && cmd.leftRef(10) == "dumpwallet") {
+        // at least one char for filename
+        return true;
+    }
+    if (cmd.size() >= 13 && cmd.leftRef(11) == "dumpprivkey") {
+        // valid PIVX Transparent Address
+        std::vector<std::string> args;
+        parseCommandLineSettings(args, cmd.toStdString());
+        return (args.size() == 2 && IsValidDestinationString(args[1], false));
+    }
+
+    return false;
+}
 
 void SettingsConsoleWidget::on_lineEdit_returnPressed()
 {
@@ -452,6 +467,11 @@ void SettingsConsoleWidget::on_lineEdit_returnPressed()
     ui->lineEdit->clear();
 
     if (!cmd.isEmpty()) {
+         // ask confirmation before sending potentially dangerous commands
+        if (PotentiallyDangerousCommand(cmd) &&
+            !ask("DANGER!", "Your coins will be STOLEN if you give\nthe info to anyone!\n\nAre you sure?\n")) {
+            return;
+        }
         message(CMD_REQUEST, cmd);
         Q_EMIT cmdCommandRequest(cmd);
         // Remove command, if already in history
