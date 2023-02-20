@@ -470,7 +470,7 @@ static const char alphanum[] =
 void ReadConfigFile(std::map<std::string, std::string>& mapSettingsRet,
     std::map<std::string, std::vector<std::string> >& mapMultiSettingsRet)
 {
-    boost::filesystem::ifstream streamConfig(GetConfigFile());
+    fs::ifstream streamConfig(GetConfigFile());
     if (!streamConfig.good()) {
         // Create empty ksoc.conf if it does not exist
         FILE* configFile = fopen(GetConfigFile().string().c_str(), "a");
