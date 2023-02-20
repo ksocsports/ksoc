@@ -10,11 +10,13 @@
 
 #include "tinyformat.h"
 #include "utiltime.h"
+#include <thread>
+
 
 #include <boost/date_time/posix_time/posix_time.hpp>
 #include <boost/thread.hpp>
 
-
+void UninterruptibleSleep(const std::chrono::microseconds& n) { std::this_thread::sleep_for(n); }
 static int64_t nMockTime = 0; //! For unit testing
 
 int64_t GetTime()

@@ -11,8 +11,9 @@
 // boost::thread / boost::chrono should be ported to std::thread / std::chrono
 // when we support C++11.
 //
-#include <boost/chrono/chrono.hpp>
-#include <boost/thread.hpp>
+#include <condition_variable>
+#include <functional>
+#include <list>
 #include <map>
 
 //
@@ -42,7 +43,7 @@ public:
     typedef std::function<void(void)> Function;
 
     // Call func at/after time t
-    void schedule(Function f, boost::chrono::system_clock::time_point t);
+    void schedule(Function f, std::chrono::system_clock::time_point t);
 
     // Convenience method: call f once deltaSeconds from now
     void scheduleFromNow(Function f, int64_t deltaSeconds);
@@ -67,17 +68,17 @@ public:
 
     // Returns number of tasks waiting to be serviced,
     // and first and last task times
-    size_t getQueueInfo(boost::chrono::system_clock::time_point &first,
-                        boost::chrono::system_clock::time_point &last) const;
+    size_t getQueueInfo(std::chrono::system_clock::time_point &first,
+                        std::chrono::system_clock::time_point &last) const;
 
 private:
-    std::multimap<boost::chrono::system_clock::time_point, Function> taskQueue;
-    boost::condition_variable newTaskScheduled;
-    mutable boost::mutex newTaskMutex;
-    int nThreadsServicingQueue;
-    bool stopRequested;
-    bool stopWhenEmpty;
-    bool shouldStop() { return stopRequested || (stopWhenEmpty && taskQueue.empty()); }
+mutable Mutex newTaskMutex;
+    std::condition_variable newTaskScheduled;
+    std::multimap<std::chrono::system_clock::time_point, Function> taskQueue GUARDED_BY(newTaskMutex);
+    int nThreadsServicingQueue GUARDED_BY(newTaskMutex);
+    bool stopRequested GUARDED_BY(newTaskMutex);
+    bool stopWhenEmpty GUARDED_BY(newTaskMutex);
+    bool shouldStop() const EXCLUSIVE_LOCKS_REQUIRED(newTaskMutex) { return stopRequested || (stopWhenEmpty && taskQueue.empty()); }
 };
 
 #endif

@@ -66,6 +66,7 @@ TestingSetup::TestingSetup()
 TestingSetup::~TestingSetup()
 {
         UnregisterNodeSignals(GetNodeSignals());
+		scheduler.stop();
         threadGroup.interrupt_all();
         threadGroup.join_all();
         UnloadBlockIndex();
