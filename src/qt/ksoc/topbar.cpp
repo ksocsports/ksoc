@@ -9,6 +9,7 @@
 #include "qt/ksoc/receivedialog.h"
 #include "qt/ksoc/loadingdialog.h"
 #include "askpassphrasedialog.h"
+#include "masternodeman.h"
 
 #include "bitcoinunits.h"
 #include "clientmodel.h"
@@ -33,28 +34,24 @@ TopBar::TopBar(KSOCGUI* _mainWindow, QWidget *parent) :
 {
     ui->setupUi(this);
 
-    // Set parent stylesheet
+     // Set parent stylesheet
     this->setStyleSheet(_mainWindow->styleSheet());
     /* Containers */
     ui->containerTop->setContentsMargins(10, 4, 10, 10);
-#ifdef Q_OS_MAC
-    ui->containerTop->load("://bg-dashboard-banner");
-    setCssProperty(ui->containerTop,"container-topbar-no-image");
-#else
     ui->containerTop->setProperty("cssClass", "container-top");
-#endif
 
-    std::initializer_list<QWidget*> lblTitles = {ui->labelTitle1, ui->labelTitle3, ui->labelTitle4};
-    setCssProperty(lblTitles, "text-title-topbar");
-    QFont font;
-    font.setWeight(QFont::Light);
-    Q_FOREACH (QWidget* w, lblTitles) { w->setFont(font); }
+    setCssProperty({ui->labelTitle1, ui->labelTitle3, ui->labelTitle4, ui->labelTitle5,
+                       ui->labelTitle6, ui->labelMasternodesTitle, ui->labelTitle8},
+        "text-title-topbar");
 
     // Amount information top
     ui->widgetTopAmount->setVisible(false);
+    ui->widgetAmount->setVisible(true);
     setCssProperty({ui->labelAmountTopPiv}, "amount-small-topbar");
     setCssProperty({ui->labelAmountPiv}, "amount-topbar");
-    setCssProperty({ui->labelPendingPiv, ui->labelImmaturePiv}, "amount-small-topbar");
+    setCssProperty({ui->labelPendingPiv, ui->labelImmaturePiv, ui->labelAvailablePiv,
+                       ui->labelMasternodeCount, ui->labelCollateralPiv, ui->labelLockedPiv},"amount-small-topbar");
+
 
     // Progress Sync
     progressBar = new QProgressBar(ui->layoutSync);
@@ -126,7 +123,7 @@ TopBar::TopBar(KSOCGUI* _mainWindow, QWidget *parent) :
     connect(ui->pushButtonSync, &ExpandableButton::Mouse_HoverLeave, this, &TopBar::refreshProgressBarSize);
     connect(ui->pushButtonSync, &ExpandableButton::Mouse_Hover, this, &TopBar::refreshProgressBarSize);
     connect(ui->pushButtonSync, &ExpandableButton::Mouse_Pressed, [this](){window->goToSettingsInfo();});
-    connect(ui->pushButtonConnection, &ExpandableButton::Mouse_Pressed, [this](){window->openNetworkMonitor();});
+    connect(ui->pushButtonConnection, &ExpandableButton::Mouse_Pressed, [this](){window->showPeers();});
 }
 
 void TopBar::onThemeClicked()
@@ -579,9 +576,27 @@ void TopBar::updateTorIcon()
         }
     }
 }
+void TopBar::refreshMasternodeStatus()
+{
+    // Masternodes
+    int nMNCount = 0;
+    int nMNActive = 0;
+    bool isSynced = masternodeSync.IsSynced();
+    
+    for (auto mne : masternodeConfig.getEntries()) {
+        nMNActive++;}
 
+    //Total MN Count
+    nMNCount = mnodeman.size();
+    
+    //message in the UI
+    ui->labelMasternodeCount->setText(tr("%1/%2").arg(nMNActive).arg(nMNCount));
+    ui->labelMasternodesTitle->setText(tr("Masternodes"));
+}
 void TopBar::refreshStatus()
 {
+        refreshMasternodeStatus();
+
     // Check lock status
     if (!this->walletModel)
         return;
@@ -607,6 +622,8 @@ void TopBar::refreshStatus()
             break;
     }
     updateStyle(ui->pushButtonLock);
+    // Collateral
+    ui->labelCollateralPiv->setText(GUIUtil::formatBalance(CMasternode::GetMasternodeCollateral(chainActive.Tip()->nHeight), nDisplayUnit));
 }
 
 void TopBar::updateDisplayUnit()
@@ -629,15 +646,21 @@ void TopBar::updateBalances(const interfaces::WalletBalances& newBalance)
     ui->labelTitle1->setText(nLockedBalance > 0 ? tr("Available (Locked included)") : tr("Available"));
 
     // PIV Total
-    QString totalPiv = GUIUtil::formatBalance(newBalance.balance, nDisplayUnit);
+    CAmount nAvailableBalance = newBalance.balance - nLockedBalance;
 
     // PIV
     // Top
-    ui->labelAmountTopPiv->setText(totalPiv);
+    ui->labelAmountTopPiv->setText(GUIUtil::formatBalance(nAvailableBalance, nDisplayUnit));
     // Expanded
-    ui->labelAmountPiv->setText(totalPiv);
-    ui->labelPendingPiv->setText(GUIUtil::formatBalance(newBalance.unconfirmed_balance, nDisplayUnit));
+    ui->labelAmountPiv->setText(GUIUtil::formatBalance(newBalance.balance, nDisplayUnit));
+    ui->labelAvailablePiv->setText(GUIUtil::formatBalance(nAvailableBalance, nDisplayUnit));
     ui->labelImmaturePiv->setText(GUIUtil::formatBalance(newBalance.immature_balance, nDisplayUnit));
+    ui->labelLockedPiv->setText(GUIUtil::formatBalance(nLockedBalance, nDisplayUnit));
+
+    refreshMasternodeStatus();
+
+    // Collateral
+    ui->labelCollateralPiv->setText(GUIUtil::formatBalance(CMasternode::GetMasternodeCollateral(chainActive.Tip()->nHeight), nDisplayUnit));
 }
 
 void TopBar::resizeEvent(QResizeEvent *event)

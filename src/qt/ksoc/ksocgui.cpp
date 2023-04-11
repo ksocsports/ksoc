@@ -517,7 +517,10 @@ void KSOCGUI::openNetworkMonitor()
 {
     settingsWidget->openNetworkMonitor();
 }
-
+void PIVXGUI::showPeers()
+{
+    settingsWidget->showPeers();
+}
 void KSOCGUI::showTop(QWidget* view)
 {
     if (stackedContainer->currentWidget() != view) {
