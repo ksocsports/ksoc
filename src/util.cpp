@@ -465,7 +465,7 @@ fs::path GetMasternodeConfigFile()
 void ReadConfigFile(std::map<std::string, std::string>& mapSettingsRet,
     std::map<std::string, std::vector<std::string> >& mapMultiSettingsRet)
 {
-    fs::ifstream streamConfig(GetConfigFile());
+    boost::filesystem::ifstream streamConfig(GetConfigFile());
     if (!streamConfig.good()) {
         // Create empty pivx.conf if it does not exist
         FILE* configFile = fsbridge::fopen(GetConfigFile(), "a");
