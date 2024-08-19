@@ -15,7 +15,7 @@
 #include <boost/filesystem/detail/utf8_codecvt_facet.hpp>
 
 /** Filesystem operations and types */
-namespace fs = fs;
+namespace fs = boost::filesystem;
 
 /** Bridge operations to C stdio */
 namespace fsbridge {
