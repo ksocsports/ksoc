@@ -517,7 +517,7 @@ void KSOCGUI::openNetworkMonitor()
 {
     settingsWidget->openNetworkMonitor();
 }
-void PIVXGUI::showPeers()
+void KSOCGUI::showPeers()
 {
     settingsWidget->showPeers();
 }
